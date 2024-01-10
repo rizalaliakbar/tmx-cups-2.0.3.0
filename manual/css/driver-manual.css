@@ -1,0 +1,203 @@
+p {
+    width:70%;
+    padding-left:  2em;
+    margin-bottom: 1em
+}
+table { margin-left: 4em }
+th {
+    text-align: left;
+    padding-left:  1em;
+    padding-right: 1em
+}
+td {
+    padding-left:  1em;
+    padding-right: 1em;
+}
+/*Product descriptions*/
+.features-title {
+    font-weight: bold;
+}
+.features-list {
+    padding-left: 4em;
+    text-indent: -1em;
+    margin-top: -1em;
+}
+.model-name {
+    font-weight: bold;
+    padding-left:  4em;
+    text-indent: -2em;
+}
+.printer-name-list {
+    padding-left:  4em;
+    margin-top: -1em;
+}
+.simple-list {
+    padding-left:  3em;
+    margin-bottom: 1em;
+    margin-top: -0.5em;
+}
+.indnt-url {
+    padding-left:  2em;
+}
+/*File configuration*/
+.dicription-env {
+    padding-left: 4em;
+    text-indent: -2em;
+}
+.dicription-env-child {
+    padding-left: 6em;
+}
+.exam-command {
+    margin-top: -1em;
+    padding-left: 7em;
+    text-indent: -2em;
+}
+table.file-config { margin-left: 0.5em; }
+td.file-config {
+    padding-left:  0.5em;
+    padding-right: 0.5em;
+}
+td.file-config-child {
+    padding-left:  1em;
+    padding-right: 0;
+}
+.directory-name {
+    font-weight: bold;
+    color: #808080;
+}
+.file-config-discription {
+    color: #c0c0c0;
+}
+/*How to Install/set/port-settings*/
+.dicription-inst {
+    padding-left: 4em;
+    text-indent: -2em;
+}
+.dicription-inst-child {
+    padding-left: 6em;
+}
+.exam-command-install {
+    margin-top: -1em;
+    padding-left: 8em;
+}
+.note-title {
+    padding-left:  6em;
+    margin-bottom: -1em;
+}
+.note-description {
+    padding-left: 8em;
+    text-indent: -0.5em;
+}
+.dicription-inst-driv {
+    margin-top: -1em;
+    padding-left: 4em;
+    text-indent: -0.75em;
+}
+.dicription-inst-driv-child {
+    margin-top: -1em;
+    padding-left: 5em;
+    text-indent: -0.75em
+}
+.package-list {
+    margin-top: -1em;
+    padding-left: 7em;
+}
+.exam-title {
+    font-style: italic;
+}
+.dicription-inst-selectmenu {
+    margin-top: -1em;
+    padding-left: 7em;
+    text-indent: -1em;
+}
+.dicription-port-set {
+    margin-top: -1em;
+    padding-left: 4em;
+    text-indent: -2em;
+}
+.dicription-gt-port-set {
+    margin-top: -1em;
+    margin-bottom: -1em;
+    padding-left: 3em;
+    text-indent: -1em;
+
+}
+table.tmpcsconfig { 
+    margin-left: 2em;
+    margin-top: -1em;
+}
+td.tmpcsconfig {
+    padding-left:  0;
+    padding-right: 0;
+}
+.pad05 { padding-left:  0.5em }
+.pad10 { padding-left:  1em }
+
+/*Transmission function for a user-defined file*/
+table.u-def-file {
+    margin-left: 1em;
+    border: 1px #999999 solid
+}
+th.u-def-file { 
+    background-color : #000099;
+    color : #ffffff;
+}
+td.u-def-file {
+    border: 1px #999999 solid
+}
+.exam-u-def {
+    padding-left: 7em;
+    text-indent: -4.5em;
+}
+.note-u-def {
+    margin-top: -1em;
+    padding-left: 4em;
+    text-indent: -0.75em;
+}
+
+/*Multi-tone conversion tool*/
+table.m-tone-options {
+    margin-left: 2em;
+}
+.note-m-tone {
+    margin-top: -1em;
+    padding-left: 4em;
+    text-indent: -0.75em;
+}
+/*How to Uninstall*/
+.note-h-install {
+    margin-top: -1em;
+    padding-left: 4em;
+    text-indent: -0.75em;
+}
+
+/*Notes and restrictions*/
+.dicription-notes {
+    padding-left: 4em;
+    text-indent: -0.75em;
+}
+
+/*Modification from the old version*/
+.dicription-mod {
+    margin-top: -1em;
+    padding-left: 4em;
+    text-indent: -1em;
+}
+.dicription-mod-child {
+    margin-top: -1em;
+    padding-left: 5em;
+    text-indent: -0.75em;
+}
+.ver1-4-mod { 
+    margin-left: 3em;
+    margin-top: -1em;
+}
+/*index.html*/
+.manual-list {
+    margin-left: 2em;
+    margin-bottom: 1em;
+    text-align: left;
+    list-style: none;
+}
+
+

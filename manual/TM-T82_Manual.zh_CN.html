@@ -1,0 +1,741 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>TM-T82型号手册</title>
+    <link href="./css/printer-manual.css" rel="stylesheet" type="text/css">
+  </head>
+  <body lang="zh-CN" dir="ltr">
+    <h1>
+      Linux操作环境下的TM/BA系列打印机的驱动程序<br>
+      TM-T82型号手册
+    </h1>
+    <br>
+    <h2>目录</h2>
+    <ol type="1">
+      <li><a href="#preface">前言</a></li>
+      <li><a href="#overview">概述</a></li>
+      <li><a href="#initial_setting">初始设定</a></li>
+      <li><a href="#print_option">打印选项的设定值</a></li>
+      <li><a href="#papersize_info">纸张尺寸信息</a></li>
+      <li><a href="#configration">蜂鸣器和钱箱使用时的打印机的设定</a></li>
+      <li><a href="#restrictions">限制</a></li>
+    </ol>
+    <br>
+
+<!--Preface-->
+    <hr>
+      <h2><a name="preface">1. 前言</a></h2>
+    <hr>
+    <p>
+      本手册记述了利用Linux操作环境下的TM/BA系列打印机的驱动程序，
+      在TM-T82进行打印时，可以指定的打印条件。
+    </p>
+    <p>
+      有关Linux操作环境下的TM/BA系列打印机的驱动程序的信息，
+      请参阅<a href="./TmxDriverManual.zh_CN.html" target="_blank">打印机驱动程序手册</a>。
+    </p><br>
+
+
+<!--Overview-->
+    <hr>
+      <h2><a name="overview">2. 概述</a></h2>
+    <hr>
+    <p>
+      TM-T82使用TM通用型号的"TM/BA通用热敏打印机"。
+    </p>
+    <p class="overview-description">
+      ・CUPS WebAdmin追加打印机的时候选择的型号名：<br>
+      "EPSON TM BA Thermal (rastertotmt) (en,en,zh_CN)"
+    </p>
+    <p class="overview-description">
+      ・对应的PPD文件：<br>
+          tm-ba-thermal-rastertotmt.ppd
+    </p>
+    <p>
+      您可以指定TM-T82的以下打印选项。
+    </p><br>
+
+    <table class="all-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th class="all-options">选项</th><th class="all-options">CUPS Admin显示</th><th class="all-options">说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="all-options" >PageSize         </td><td class="all-options" >纸张尺寸</td><td class="all-options" >纸张尺寸</td></tr>
+        <tr><td class="all-options" >TmxPrintSpeed    </td><td class="all-options" >打印速度</td><td class="all-options" >打印速度</td></tr>
+        <tr><td class="all-options" >TmxPaperReduction</td><td class="all-options" >节约纸张 </td><td class="all-options" >空白页保存</td></tr>
+        <tr><td class="all-options" >TmxPaperSource   </td><td class="all-options" >纸张来源</td><td class="all-options" >剪切或供入纸张</td></tr>
+        <tr><td class="all-options" >TmxPrinterType   </td><td class="all-options" >打印机类型</td><td class="all-options" >打印机类型</td></tr>
+        <tr><td class="all-options" >Resolution       </td><td class="all-options" >分辨率</td><td class="all-options" >输出分辨率</td></tr>
+        <tr><td class="all-options" >TmxFeedPitch     </td><td class="all-options" >进纸节距</td><td class="all-options" >进纸的单位长度</td></tr>
+        <tr><td class="all-options" >TmxMaxBandWidth  </td><td class="all-options" >最大图像带宽</td><td class="all-options" >印象指令的最大带宽</td></tr>
+        <tr><td class="all-options" >TmxBandLines     </td><td class="all-options" >图像带高度</td><td class="all-options" >印象指令的带高度</td></tr>
+        <tr><td class="all-options" >TmxSpeedControl  </td><td class="all-options" >速度控制</td><td class="all-options" >打印速度控制方法</td></tr>
+        <tr><td class="all-options" >TmxBuzzerControl </td><td class="all-options" >蜂鸣器</td><td class="all-options" >是否发出鸣响</td></tr>
+        <tr><td class="all-options" >TmxSoundPattern  </td><td class="all-options" >发声模式</td><td class="all-options" >鸣响模式</td></tr>
+        <tr><td class="all-options" >TmxBuzzerRepeat  </td><td class="all-options" >蜂鸣器重复</td><td class="all-options" >鸣响重复计数</td></tr>
+        <tr><td class="all-options" >TmxDrawerControl </td><td class="all-options" >钱箱</td><td class="all-options" >钱箱控制</td></tr>
+        <tr><td class="all-options" >TmxPulseOnTime   </td><td class="all-options" >踢脉冲持续时间</td><td class="all-options" >钱箱踢脉冲持续时间</td></tr>
+      </tbody>
+    </table>
+    <br>
+    <p>
+      可以在GUI或命令行中更改打印选项的设定值。有关各个打印选项设定值的
+      说明，请参见“4. 打印选项的设定值”。
+    </p>
+    <p class="example-description">
+      示例）使用lp命令指定卷纸（80 x 297 mm）的纸张尺寸。<br><br>
+           $ lp -o Pagesize=RP80x297
+    </p>
+    <p class="note-title">
+      注）
+    </p>
+    <p class="note-description">
+    ! 您还可以使用CUPS所拥有的选项指定份数。<br>
+      有关CUPS所拥有的选项的信息，请参阅CUPS文档。
+    </p>
+    <p class="note-url"><A href="http://localhost:631/help/" target="_blank">http://localhost:631/help/</A></p>
+    <br>
+
+<!--Initial settings-->
+    <hr>
+      <h2><a name="initial_setting">3. 初始设定</a></h2>
+    <hr>
+    <p>
+      以下内容是出厂时默认设定。<br>
+      记号(*)表示打印机驱动程序的初始值和不同的设定。<br>
+      请注意在记号(*)附记了的设定。<br>
+    </p>
+    <table class="init-settings" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th class="init-settings">CUPS Admin显示</th><th class="init-settings">默认设定</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="init-settings" colspan="2">[基本设定]            </td></tr>
+        <tr><td class="menu-indent"> 纸张尺寸 </td><td class="init-settings"> 卷纸80 x 297 mm</td></tr>
+        <tr><td class="menu-indent"> 打印速度 </td><td class="init-settings"> 使用打印机设定</td></tr>
+        <tr><td class="menu-indent"> 节约纸张 </td><td class="init-settings"> 节约底部空白</td></tr>
+        <tr><td class="menu-indent"> 纸张来源 </td><td class="init-settings"> 文件 [进纸、切纸]</td></tr>
+        <tr><td class="init-settings" colspan="2">[打印机设定]    </td></tr>
+        <tr><td class="menu-indent"> 打印机类型 </td><td class="init-settings"> 热敏收据</td></tr>
+        <tr><td class="menu-indent different-marker"> 分辨率     </td><td class="init-settings different-marker"> 203 x 203 dpi (*)</td></tr>
+        <tr><td class="menu-indent different-marker"> 进纸节距   </td><td class="init-settings different-marker"> 406 dpi (*)</td></tr>
+        <tr><td class="menu-indent different-marker"> 最大图像带宽  </td><td class="init-settings different-marker"> 576 (*)</td></tr>
+        <tr><td class="menu-indent"> 图像带高度 </td><td class="init-settings"> 256</td></tr>
+        <tr><td class="menu-indent"> 速度控制  </td><td class="init-settings"> 最大级别13</td></tr>
+        <tr><td class="init-settings" colspan="2">[蜂鸣器控制]     </td></tr>
+        <tr><td class="menu-indent"> 蜂鸣器  </td><td class="init-settings"> 不使用</td></tr>
+        <tr><td class="menu-indent different-marker"> 发声模式  </td><td class="init-settings different-marker"> 选项蜂鸣器（模式A） (*)</td></tr>
+        <tr><td class="menu-indent"> 蜂鸣器重复 </td><td class="init-settings"> 1</td></tr>
+        <tr><td class="init-settings" colspan="2">[钱箱控制]</td></tr>
+        <tr><td class="menu-indent"> 钱箱  </td><td class="init-settings"> 不打开</td></tr>
+        <tr><td class="menu-indent"> 踢脉冲持续时间  </td><td class="init-settings"> 20毫秒</td></tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+
+<!--Setting values of printing options-->
+    <hr>
+      <h2><a name="print_option">4. 打印选项的设定值</a></h2>
+    <hr>
+    <p>
+      可以在打印选项中使用以下设定。<br>
+    </p>
+    <h3>[基本设定]</h3>
+<!--Media Size-->
+    <p>
+      <span class="option-title">纸张尺寸：</span>指定纸张尺寸
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">RP82.5x297</td><td class="printing-options">卷纸82.5 x 297 mm</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">RP80x297</td><td class="printing-options">卷纸80 x 297 mm</td><td class="printing-options">卷纸（80 x 297 mm）</td></tr>
+        <tr><td class="printing-options">RP60x297</td><td class="printing-options">卷纸60 x 297 mm</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">RP58x297</td><td class="printing-options">卷纸58 x 297 mm</td><td class="printing-options">卷纸（58 x 297 mm）</td></tr>
+        <tr><td class="printing-options">RP82.5x2000</td><td class="printing-options">卷纸82.5 x 2000 mm</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">RP80x2000</td><td class="printing-options">卷纸80 x 2000 mm</td><td class="printing-options">卷纸（80 x 2000 mm）</td></tr>
+        <tr><td class="printing-options">RP60x2000</td><td class="printing-options">卷纸60 x 2000 mm</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">RP58x2000</td><td class="printing-options">卷纸58 x 2000 mm</td><td class="printing-options">卷纸（58 x 2000 mm）</td></tr>
+        <tr><td class="printing-options">A4</td><td class="printing-options">A4</td><td class="printing-options">A4</td></tr>
+        <tr><td class="printing-options">LT</td><td class="printing-options">LT</td><td class="printing-options">Letter</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Print Speed-->
+    <p>
+      <span class="option-title">打印速度：</span>指定打印速度
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">自动</td><td class="printing-options">使用打印机设定</td><td class="printing-options">使用打印机的默认值</td></tr>
+        <tr><td class="printing-options">1</td><td class="printing-options">第一（快）</td><td class="printing-options">以最快的速度打印</td></tr>
+        <tr><td class="printing-options">2</td><td class="printing-options">第二</td><td class="printing-options">以第二快的速度打印</td></tr>
+        <tr><td class="printing-options">3</td><td class="printing-options">第三</td><td class="printing-options">以第三快的速度打印</td></tr>
+        <tr><td class="printing-options">4</td><td class="printing-options">第四（慢）</td><td class="printing-options">以最慢的速度打印</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Paper Reduction-->
+    <p>
+      <span class="option-title">节约纸张：</span>指定是否保存空白页
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">Off</td><td class="printing-options">无</td><td class="printing-options">不保存空白页</td></tr>
+        <tr><td class="printing-options">Top</td><td class="printing-options">节约顶部空白</td><td class="printing-options">保存顶部空白</td></tr>
+        <tr><td class="printing-options">Bottom</td><td class="printing-options">节约底部空白</td><td class="printing-options">保存底部空白</td></tr>
+        <tr><td class="printing-options">Both</td><td class="printing-options">节约顶部和底部空白</td><td class="printing-options">保存顶部和底部空白</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Paper Source-->
+    <p>
+      <span class="option-title">纸张来源：</span>指定是剪切还是供入纸张
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">DocFeedCut</td><td class="printing-options">文件[进纸、切纸]</td><td class="printing-options">供入后部分剪切</td></tr>
+        <tr><td class="printing-options">DocFeedNoCut</td><td class="printing-options">文件[进纸、不切纸]</td><td class="printing-options">在不剪切的情况下供入至手动剪切位置</td></tr>
+        <tr><td class="printing-options">DocNoFeedCut</td><td class="printing-options">文件[不进纸、切纸]</td><td class="printing-options">在不供入的情况下部分剪切</td></tr>
+        <tr><td class="printing-options">DocNoFeedNoCut</td><td class="printing-options">文件[不进纸、不切纸]</td><td class="printing-options">不操作</td></tr>
+        <tr><td class="printing-options">PageFeedCut</td><td class="printing-options">页面[进纸、切纸]</td><td class="printing-options">供入后部分剪切每一页</td></tr>
+        <tr><td class="printing-options">PageFeedNoCut</td><td class="printing-options">页面[进纸、不切纸]</td><td class="printing-options">在不剪切的情况下供入每一页至手动剪切位置</td></tr>
+        <tr><td class="printing-options">PageNoFeedCut</td><td class="printing-options">页面[不进纸、切纸]</td><td class="printing-options">在不供入的情况下立即部分剪切每一页</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+    <h3>[打印机设定]</h3>
+<!--Printer Type-->
+    <p>
+      <span class="option-title">打印机类型：</span>指定打印机类型
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">ThermalReceipt</td><td class="printing-options">Thermal receipt</td><td class="printing-options">热敏收据打印机</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Resolution-->
+    <p>
+      <span class="option-title">分辨率：</span>指定输出分辨率
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">180x180dpi</td><td class="printing-options">180 x 180 dpi</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">203x203dpi</td><td class="printing-options">203 x 203 dpi</td><td class="printing-options">以203 x 203 dpi输出</td></tr>
+        <tr><td class="printing-options">162x162dpi</td><td class="printing-options">[90%/180dpi]</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">144x144dpi</td><td class="printing-options">[80%/180dpi]</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">126x126dpi</td><td class="printing-options">[70%/180dpi]</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">108x108dpi</td><td class="printing-options">[60%/180dpi]</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">90x90dpi</td><td class="printing-options">[50%/180dpi]</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">72x72dpi</td><td class="printing-options">[40%/180dpi]</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">68x68dpi</td><td class="printing-options">[38%(A4 to 80mm)/180dpi]</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">48x48dpi</td><td class="printing-options">[27%(A4 to 58mm)/180dpi]</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">0182x182dpi</td><td class="printing-options">[90%/203dpi]</td><td class="printing-options">90% 减少 (203dpi)</td></tr>
+        <tr><td class="printing-options">0162x162dpi</td><td class="printing-options">[80%/203dpi]</td><td class="printing-options">80% 减少 (203dpi)</td></tr>
+        <tr><td class="printing-options">0142x142dpi</td><td class="printing-options">[70%/203dpi]</td><td class="printing-options">70% 减少 (203dpi)</td></tr>
+        <tr><td class="printing-options">0121x121dpi</td><td class="printing-options">[60%/203dpi]</td><td class="printing-options">60% 减少 (203dpi)</td></tr>
+        <tr><td class="printing-options">0102x102dpi</td><td class="printing-options">[50%/203dpi]</td><td class="printing-options">50% 减少 (203dpi)</td></tr>
+        <tr><td class="printing-options">081x81dpi</td><td class="printing-options">[40%/203dpi]</td><td class="printing-options">40% 减少 (203dpi)</td></tr>
+        <tr><td class="printing-options">077x77dpi</td><td class="printing-options">[38%(A4 to 80mm)/203dpi]</td><td class="printing-options">38% 减少(A4到80mm) (203dpi)</td></tr>
+        <tr><td class="printing-options">056x56dpi</td><td class="printing-options">[27%(A4 to 58mm)/203dpi]</td><td class="printing-options">27% 减少(A4到58mm) (203dpi)</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Pitch of Feed-->
+    <p>
+      <span class="option-title">进纸节距：</span>指定进纸单位长度
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">180.0</td><td class="printing-options">180 dpi</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">203.2</td><td class="printing-options">203 dpi</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">360.0</td><td class="printing-options">360 dpi</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">406.4</td><td class="printing-options">406 dpi</td><td class="printing-options">以406dpi</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Maximum Band Width-->
+    <p>
+      <span class="option-title">最大图像带宽：</span>指定最大图像带宽
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">360</td><td class="printing-options">360</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">384</td><td class="printing-options">384</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">416</td><td class="printing-options">416</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">420</td><td class="printing-options">420</td><td class="printing-options">420 dots</td></tr>
+        <tr><td class="printing-options">436</td><td class="printing-options">436</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">512</td><td class="printing-options">512</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">576</td><td class="printing-options">576</td><td class="printing-options">576 dots</td></tr>
+        <tr><td class="printing-options">640</td><td class="printing-options">640</td><td class="printing-options">＜选择不可＞</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Band Lines-->
+    <p>
+      <span class="option-title">图像带高度：</span>指定图像带高度
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">256</td><td class="printing-options">256</td><td class="printing-options">以每256行</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Speed Control-->
+    <p>
+      <span class="option-title">速度控制：</span>指定打印速度控制方法
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">0,0,0,0</td><td class="printing-options">None</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">-1,-1,-1,-1</td><td class="printing-options">BA-T series</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">9,7,4,1</td><td class="printing-options">Max. level 9</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">10,7,4,1</td><td class="printing-options">Max. level 10</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">11,8,4,1</td><td class="printing-options">Max. level 11</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">13,9,5,1</td><td class="printing-options">Max. level 13</td><td class="printing-options">以最高的速度，级别13</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+    <h3>[蜂鸣器控制]</h3>
+<!--Buzzer-->
+    <p class="note-title">
+      注）
+    </p>
+    <p class="note-description">
+      ! 当使用蜂鸣器，设定打印机可根据使用的选项的组合需要。<br>
+         有关详细信息，请参阅“<a href="#configration">6. 蜂鸣器和钱箱使用时的打印机的设定</a>”。
+    </p>
+    <p>
+      <span class="option-title">蜂鸣器：</span>指定是否发出鸣响
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">Off</td><td class="printing-options">不使用</td><td class="printing-options">不鸣响</td></tr>
+        <tr><td class="printing-options">Before</td><td class="printing-options">打印前发出声音</td><td class="printing-options">打印前鸣响</td></tr>
+        <tr><td class="printing-options">After</td><td class="printing-options">打印后发出声音</td><td class="printing-options">打印后鸣响</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Sound Pattern-->
+    <p>
+      <span class="option-title">发声模式：</span>指定鸣响模式
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">Internal</td><td class="printing-options">内置蜂鸣器</td><td class="printing-options">＜选择不可＞</td></tr>
+        <tr><td class="printing-options">A</td><td class="printing-options">选项蜂鸣器（模式A）</td><td class="printing-options">鸣响模式A（用于选项蜂鸣器）</td></tr>
+        <tr><td class="printing-options">B</td><td class="printing-options">选项蜂鸣器（模式B）</td><td class="printing-options">鸣响模式B（用于选项蜂鸣器）</td></tr>
+        <tr><td class="printing-options">C</td><td class="printing-options">选项蜂鸣器（模式C）</td><td class="printing-options">鸣响模式C（用于选项蜂鸣器）</td></tr>
+        <tr><td class="printing-options">D</td><td class="printing-options">选项蜂鸣器（模式D）</td><td class="printing-options">鸣响模式D（用于选项蜂鸣器）</td></tr>
+        <tr><td class="printing-options">E</td><td class="printing-options">选项蜂鸣器（模式E）</td><td class="printing-options">鸣响模式E（用于选项蜂鸣器）</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Buzzer Repeat-->
+    <p>
+      <span class="option-title">蜂鸣器重复：</span>指定鸣响的次数
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">1</td><td class="printing-options">1</td><td class="printing-options">鸣响一次</td></tr>
+        <tr><td class="printing-options">2</td><td class="printing-options">2</td><td class="printing-options">鸣响两次</td></tr>
+        <tr><td class="printing-options">3</td><td class="printing-options">3</td><td class="printing-options">鸣响三次</td></tr>
+        <tr><td class="printing-options">5</td><td class="printing-options">5</td><td class="printing-options">鸣响五次</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+    <h3>[钱箱控制]</h3>
+<!--Cash Drawer-->
+    <p class="note-title">
+      注）
+    </p>
+    <p class="note-description">
+     ! 当使用钱箱，设定打印机可根据使用的选项的组合需要。<br>
+      有关详细信息，请参阅“<a href="#configration">6. 蜂鸣器和钱箱使用时的打印机的设定</a>”。
+    </p>
+    <p>
+      <span class="option-title">钱箱：</span>指定钱箱的操作
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">None</td><td class="printing-options">不打开</td><td class="printing-options">不打开钱箱</td></tr>
+        <tr><td class="printing-options">Drawer#1,Before</td><td class="printing-options">打印前打开钱箱#1</td><td class="printing-options">打印前打开钱箱#1</td></tr>
+        <tr><td class="printing-options">Drawer#1,After</td><td class="printing-options">打印后打开钱箱#1</td><td class="printing-options">打印后打开钱箱#1</td></tr>
+        <tr><td class="printing-options">Drawer#2,Before</td><td class="printing-options">打印前打开钱箱#2</td><td class="printing-options">打印前打开钱箱#2</td></tr>
+        <tr><td class="printing-options">Drawer#2,After</td><td class="printing-options">打印后打开钱箱#2</td><td class="printing-options">打印后打开钱箱#2</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Pulse On Time-->
+    <p>
+      <span class="option-title">踢脉冲持续时间：</span>指定钱箱踢脉冲持续时间
+    </p>
+    <table class="printing-options" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+                    <th class="printing-options">设定值</th><th class="printing-options">CUPS Admin显示</th><th class="printing-options">说明</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="printing-options">20,10,100</td><td class="printing-options">20毫秒</td><td class="printing-options">开：20毫秒，关：200毫秒</td></tr>
+        <tr><td class="printing-options">40,20,100</td><td class="printing-options">40毫秒</td><td class="printing-options">开：40毫秒，关：200毫秒</td></tr>
+        <tr><td class="printing-options">60,30,120</td><td class="printing-options">60毫秒</td><td class="printing-options">开：60毫秒，关：240毫秒</td></tr>
+        <tr><td class="printing-options">80,40,160</td><td class="printing-options">80毫秒</td><td class="printing-options">开：80毫秒，关：320毫秒</td></tr>
+        <tr><td class="printing-options">100,50,200</td><td class="printing-options">100毫秒</td><td class="printing-options">开：100毫秒，关：400毫秒</td></tr>
+        <tr><td class="printing-options">120,60,240</td><td class="printing-options">120毫秒</td><td class="printing-options">开：120毫秒，关：480毫秒</td></tr>
+      </tbody>
+    </table>
+    <br>
+
+<!--Paper size information-->
+    <hr>
+      <h2><a name="papersize_info">5. 纸张尺寸信息</a></h2>
+    <hr>
+    <br>
+
+    <table class="psize-info" width="950">
+      <thead>
+        <tr>
+          <th class="psize-info psize-info-1st-row" width="230">纸张尺寸名称</th>
+          <th class="psize-info psize-info-1st-row" colspan="2" width="120">输入尺寸</th>
+          <th class="psize-info psize-info-1st-row" colspan="4" width="180">装订空白</th>
+          <th class="psize-info psize-info-1st-row" colspan="2" width="120">输出纸张尺寸</th>
+        </tr>
+        <tr>
+          <th class="psize-info psize-info-2nd-row" width="230">（CUPS Admin显示）</th>
+          <th class="psize-info psize-info-2nd-row psize-info-left-col" width="60">宽度</th>
+          <th class="psize-info psize-info-2nd-row psize-info-right-col" width="60">长度</th>
+          <th class="psize-info psize-info-2nd-row psize-info-left-col" width="40">左</th>
+          <th class="psize-info psize-info-2nd-row psize-info-mid-col" width="50">右</th>
+          <th class="psize-info psize-info-2nd-row psize-info-mid-col" width="40">上</th>
+          <th class="psize-info psize-info-2nd-row psize-info-right-col" width="50">下</th>
+          <th class="psize-info psize-info-2nd-row psize-info-left-col" width="60">宽度</th>
+          <th class="psize-info psize-info-2nd-row psize-info-right-col" width="60">长度</th>
+        </tr>
+        <tr>
+          <th class="psize-info psize-info-3rd-row" width="230">&nbsp;</th>
+          <th class="psize-info psize-info-mm psize-info-3rd-row" colspan="2" width="120">(mm)</th>
+          <th class="psize-info psize-info-mm psize-info-3rd-row" colspan="4" width="180">(mm)</th>
+          <th class="psize-info psize-info-mm psize-info-3rd-row" colspan="2" width="120">(mm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="psize-info" width="230">
+            <ul class="psize-list-papername">
+              <li>卷纸80 x 297 mm</li>
+              <li>卷纸58 x 297 mm</li>
+              <li>卷纸80 x 2000 mm</li>
+              <li>卷纸58 x 2000 mm</li>
+              <li>A4</li>
+              <li>LT</li>
+            </ul>
+          </td>
+          <td class="psize-info psize-info-left-col" width="60">
+            <ul class="psize-info-list">
+              <li>72.0</li>
+              <li>50.8</li>
+              <li>72.0</li>
+              <li>50.8</li>
+              <li>202.0</li>
+              <li>207.9</li>
+            </ul>
+          </td>
+          <td class="psize-info psize-info-right-col" width="60">
+            <ul class="psize-info-list">
+              <li>297.0</li>
+              <li>297.0</li>
+              <li>2000.0</li>
+              <li>2000.0</li>
+              <li>289.0</li>
+              <li>271.4</li>
+            </ul>
+          </td>
+          <td class="psize-info psize-info-left-col" width="40">
+            <ul class="psize-info-list">
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+            </ul>
+          </td>
+          <td class="psize-info psize-info-mid-col" width="50">
+            <ul class="psize-info-list">
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+            </ul>
+          </td>
+          <td class="psize-info psize-info-mid-col" width="40">
+            <ul class="psize-info-list">
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+            </ul>
+          </td>
+          <td class="psize-info psize-info-right-col" width="50">
+            <ul class="psize-info-list">
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+              <li>0.0</li>
+            </ul>
+          </td>
+          <td class="psize-info psize-info-left-col" width="60">
+            <ul class="psize-info-list">
+              <li>72.0</li>
+              <li>50.8</li>
+              <li>72.0</li>
+              <li>50.8</li>
+              <li>202.0</li>
+              <li>207.9</li>
+            </ul>
+          </td>
+          <td class="psize-info psize-info-right-col" width="60">
+            <ul class="psize-info-list">
+              <li>297.0</li>
+              <li>297.0</li>
+              <li>2000.0</li>
+              <li>2000.0</li>
+              <li>289.0</li>
+              <li>271.4</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      该驱动程序可允许您使用CUPS选项指定纸张尺寸。
+    </p>
+    <p class="example-description">
+      示例）以72 x 102 mm尺寸打印文件。<br><br>
+           $ lp -o media=Custom.72x102mm 文件
+    </p>
+    <p class="pinfo-description">
+      可以在以下范围内指定纸张尺寸。
+    </p>
+    <p class="pinfo-description">
+      纸张宽度：25.4 - 72 mm<br>
+      纸张长度：25.4 - 2,000 mm
+    </p>
+    <br>
+    <br>
+
+<!--Printer configuration on using buzzer and/or cash drawer-->
+    <hr>
+      <h2><a name="configration">6. 蜂鸣器和钱箱使用时的打印机的设定</a></h2>
+    <hr>
+    <p>
+      当使用蜂鸣器和钱箱，设定打印机可根据使用的选项的组合需要。<br>
+      参照下表，请设置写在同一列，其中的选项状态相匹配的值。<br>
+    </p>
+    <table class="configuration-settings" cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th class="configuration-settings">选项</th><th class="configuration-settings" colspan="4">状态</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="configuration-settings configuration-1st-row">外部选项蜂鸣器</td>
+          <td class="configuration-settings configuration-values configuration-1st-row"> 不使用 </td>
+          <td class="configuration-settings configuration-values configuration-1st-row"> 不使用 </td>
+          <td class="configuration-settings configuration-values configuration-1st-row"> 不使用 </td>
+          <td class="configuration-settings configuration-values configuration-1st-row">  使用   </td>
+        </tr>
+        <tr>
+          <td class="configuration-settings configuration-2nd-row"> 钱箱#1 </td>
+          <td class="configuration-settings configuration-values configuration-2nd-row"> 不使用 </td>
+          <td class="configuration-settings configuration-values configuration-2nd-row">  使用   </td>
+          <td class="configuration-settings configuration-values configuration-2nd-row"> 不使用 </td>
+          <td class="configuration-settings configuration-2nd-row"> 不使用 </td>
+        </tr>
+        <tr>
+          <td class="configuration-settings configuration-3rd-row"> 钱箱#2 </td>
+          <td class="configuration-settings configuration-values configuration-3rd-row"> 不使用 </td>
+          <td class="configuration-settings configuration-values configuration-3rd-row"> 不使用 </td>
+          <td class="configuration-settings configuration-values configuration-3rd-row">  使用   </td>
+          <td class="configuration-settings configuration-values configuration-3rd-row"> 不使用 </td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th class="configuration-settings">数值名称</th><th class="configuration-settings" colspan="4">值来设置 (* = 不关心)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="configuration-settings">BuzzerSelect</td>
+          <td class="configuration-settings configuration-values">*</td>
+          <td class="configuration-settings configuration-values">0</td>
+          <td class="configuration-settings configuration-values">0</td>
+          <td class="configuration-settings configuration-values">1</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note-title">
+      注）
+    </p>
+    <p class="note-description-config">
+      - BuzzerSelect    : 0=不使用外部选项蜂鸣器, 1=使用外部选项蜂鸣器<br>
+      - 外部蜂鸣器和钱箱不能同时使用。<br>
+    </p>
+    <p>
+      有关设置打印机时，请使用端口设置工具tmpcsconfig在终端的命令行。<br>
+      在设置打印机时，应正确连接，并且端口应设置正确。<br>
+      你需要root权限来设定打印机。
+    </p>
+    <p class="note-description-config">
+      # tmpcsconfig set 端口ID 数值名称 值来设置<br>
+    </p>
+    <p class="note-title">
+      示例）<br>
+    </p>
+    <p class="note-description-config">
+      - 对于连接到端口ESDPRT001打印机，设定BuzzerSelect=1。
+      BuzzerSelect=1.<br><br>
+      # tmpcsconfig set esdprt001 buzzerselect 1<br>
+      <br>
+      上述的缩写形式如下所示。<br>
+      <br>
+      # tmpcsconfig s 1 bu 1<br>
+    </p>
+    <br>
+
+<!--Restrictionsn-->
+    <hr>
+      <h2><a name="restrictions">7. 限制</a></h2>
+    <hr>
+    <p>
+      * 您无法为每一页指定打印条件。
+    </p>
+    <br>
+
+    <hr>
+<!--Copyright-->
+    <p>
+      版权(C) Seiko Epson公司 2011-2015，版权所有。<br>
+      <br>
+      Linux是Linus Torvalds在美国和其他国家的注册商标或商标。<br>
+      <br>
+      CUPS和CUPS标识是Apple Inc.在美国和其他国家注册的商标。<br>
+      <br>
+      本文档中其他产品的名称都是各自公司的商标或注册商标。<br>
+    </p>
+
+  </body>
+</html>

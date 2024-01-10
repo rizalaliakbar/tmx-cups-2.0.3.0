@@ -1,0 +1,1940 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>TM/BA Series Printer Driver for Linux - Driver Manual</title>
+    <link href="./css/driver-manual.css" rel="stylesheet" type="text/css">
+  </head>
+  <body lang="en-US" dir="ltr">
+  <h1>
+    TM/BA Series Printer Driver for Linux<br>
+    Driver Manual
+  </h1><br>
+  <h2>Contents</h2>
+  <ol type="1">
+    <li><a href="#license_agreement">License agreement</a></li>
+    <li><a href="#product_descriptions">Product descriptions</a></li>
+    <li><a href="#file_configuration">File configuration</a></li>
+    <li><a href="#operational_environment">Operational environment</a></li>
+    <li><a href="#how_to_install">How to Install</a></li>
+    <li><a href="#how_to_set">How to Set</a></li>
+    <li><a href="#port_settings">Port settings</a></li>
+    <li><a href="#transmission_function">Transmission function for a user-defined file</a></li>
+    <li><a href="#multi-tone_conversion_tool">Multi-tone conversion tool</a></li>
+    <li><a href="#how_to_uninstall">How to Uninstall</a></li>
+    <li><a href="#notes_and_restrictions">Notes and restrictions</a></li>
+    <li><a href="#support_information">Support information</a></li>
+    <li><a href="#modification">Modification from the old version</a></li>
+  </ol>
+  <br>
+
+
+<!--License agreement-->
+    <hr>
+      <h2><a name="license_agreement">1. License agreement</a></h2>
+    <hr>
+    <p>
+      This software is distributed under a non-free proprietary license.<br>
+      Refer to the attached EULA.en.txt for the license details.
+    </p>
+    <p>
+      Copyright of all source code composing binary files of this software 
+      is held by SEIKO EPSON CORPORATION, and binary files are distributed 
+      under the SEIKO EPSON CORPORATION SOFTWARE LICENSE AGREEMENT (refer 
+      to EULA.en.txt).
+    </p><br>
+
+<!--Product descriptions-->
+    <hr>
+      <h2><a name="product_descriptions">2. Product descriptions</a></h2>
+    <hr>
+    <p>
+      This software is a printer driver for printing on a TM/BA series printer from Linux using CUPS.<br>
+    </p>
+    <p class="features-title">
+      Features:
+    </p>
+    <p class="features-list">
+      - A raster type printer driver for TM/BA series printers.<br>
+    </p>
+    <p class="features-list">
+      - Supports both thermal and impact dot printers.<br>
+    </p>
+    <p class="features-list">
+      - Can instantly print out images, texts, and drawings displayed by an application.<br>
+    </p>
+    <p class="features-list">
+      - Various printer controls on paper cut timing, cash drawers, print speed, blank line saving, inverted printing, etc.<br>
+    </p>
+    <br>
+
+    <h3>2.1. Supported models</h3>
+    <p>
+      This software supports TM/BA series printers.<br>
+      Available printer models:<br>
+    </p>
+    <p class="model-name">
+      TM BA Thermal : TM/BA generic thermal<br>
+    </p>
+    <p class="printer-name-list">
+      (Models supported by "TM BA Thermal")<br>
+      - TM-H6000II Receipt<br>
+      - TM-H6000III Receipt<br>
+      - TM-H6000IV Receipt<br>
+      - TM-m10<br>
+      - TM-m30<br>
+      - TM-T20<br>
+      - TM-T20II<br>
+      - TM-T70<br>
+      - TM-T70 ANK<br>
+      - TM-T70II<br>
+      - TM-T70II ANK<br>
+      - TM-T82<br>
+      - TM-T82II<br>
+      - TM-T88IV<br>
+      - TM-T88V<br>
+      - TM-T88VI<br>
+      - TM-T90<br>
+      - TM-T90 ANK<br>
+      - TM-T90II<br>
+      - BA-T500II<br>
+    </p>
+    <p class="model-name">
+      TM Impact Receipt : TM generic impact receipt<br>
+    </p>
+    <p class="printer-name-list">
+      (Models supported by "TM Impact Receipt")<br>
+      - TM-U120<br>
+      - TM-U120II<br>
+      - TM-U220<br>
+      - TM-U230<br>
+      - TM-U375 Receipt<br>
+      - TM-U675 Receipt<br>
+    </p>
+    <p class="model-name">
+      TM Slip : TM generic slip<br>
+    </p>
+    <p class="printer-name-list">
+      (Models supported by "TM Slip")<br>
+      - TM-H6000II Slip<br>
+      - TM-H6000III Slip<br>
+      - TM-H6000IV Slip<br>
+      - TM-U375 Slip<br>
+      - TM-U675 Slip<br>
+    </p>
+    <br>
+
+    <h3>2.2. Supported interface</h3>
+    <p class="simple-list">
+      - USB<br>
+      - Serial<br>
+      - Parallel<br>
+      - Ethernet<br>
+    </p>
+    <br>
+    <br>
+
+<!--File configuration-->
+    <hr>
+      <h2><a name="file_configuration">3. File configuration</a></h2>
+    <hr>
+    <p>
+      The package (tmx-cups-2.0.3.0.tar.gz) includes the following.<br>
+    </p>
+    <table class="file-config">
+      <tr><td class="file-config directory-name" colspan="2">tmx-cups</td><td class="directory-name" colspan="3">&larr;Top directory</td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">EULA.en.txt  &ensp;&emsp;&emsp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;End User License Agreement</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">EULA.ja.txt  &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;End User License Agreement (Japanese)</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">EULA.zh_CN.txt   &ensp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;End User License Agreement (Chinese)</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">install.sh  &emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;Install script</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">install-sc.sh  &ensp;&emsp;&emsp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;Install script (Chinese)</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">uninstall.sh   &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;Uninstall script</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config directory-name" colspan="4">manual &emsp;&emsp;&lt;&ndash; Manual directory</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">index.html</td><td class="file-config-discription">&larr;index</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TmxDriverManual.en.html</td><td class="file-config-discription">&larr;Printer Driver Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TmxDriverManual.ja.html</td><td class="file-config-discription">&larr;Printer Driver Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TmxDriverManual.zh_CN.html</td><td class="file-config-discription">&larr;Printer Driver Manual (Chinese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-Thermal_Manual.en.html</td><td class="file-config-discription">&larr;TM/BA Thermal Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-Impact_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;TM Impact Receipt Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-Slip_Manual.en.html</td><td class="file-config-discription">&larr;TM Slip Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000II_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;TM-H6000II Receipt Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000II_Slip_Manual.en.html</td><td class="file-config-discription">&larr;TM-H6000II Slip Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000III_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;TM-H6000III Receipt Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000III_Slip_Manual.en.html</td><td class="file-config-discription">&larr;TM-H6000III Slip Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000IV_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;TM-H6000IV Receipt Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000IV_Slip_Manual.en.html</td><td class="file-config-discription">&larr;TM-H6000IV Slip Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-m10_Manual.en.html</td><td class="file-config-discription">&larr;TM-m10 Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-m30_Manual.en.html</td><td class="file-config-discription">&larr;TM-m30 Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T20_Manual.en.html</td><td class="file-config-discription">&larr;TM-T20 Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T20II_Manual.en.html</td><td class="file-config-discription">&larr;TM-T20II Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T70_Manual.en.html</td><td class="file-config-discription">&larr;TM-T70 Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T70ANK_Manual.en.html</td><td class="file-config-discription">&larr;TM-T70 ANK Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T70II_Manual.en.html</td><td class="file-config-discription">&larr;TM-T70II Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T70IIANK_Manual.en.html</td><td class="file-config-discription">&larr;TM-T70II ANK Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T82_Manual.en.html</td><td class="file-config-discription">&larr;TM-T82 Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T82_Manual.zh_CN.html</td><td class="file-config-discription">&larr;TM-T82 Model Manual (Chinese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T82II_Manual.en.html</td><td class="file-config-discription">&larr;TM-T82II Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T82II_Manual.zh_CN.html</td><td class="file-config-discription">&larr;TM-T82II Model Manual (Chinese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T88IV_Manual.en.html</td><td class="file-config-discription">&larr;TM-T88IV Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T88V_Manual.en.html</td><td class="file-config-discription">&larr;TM-T88V Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T88VI_Manual.en.html</td><td class="file-config-discription">&larr;TM-T88VI Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T90_Manual.en.html</td><td class="file-config-discription">&larr;TM-T90 Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T90ANK_Manual.en.html</td><td class="file-config-discription">&larr;TM-T90 ANK Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T90II_Manual.en.html</td><td class="file-config-discription">&larr;TM-T90II Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">BA-T500II_Manual.en.html</td><td class="file-config-discription">&larr;BA-T500II Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U120_Manual.en.html</td><td class="file-config-discription">&larr;TM-U120 Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U120II_Manual.en.html</td><td class="file-config-discription">&larr;TM-U120II Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U220_Manual.en.html</td><td class="file-config-discription">&larr;TM-U220 Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U230_Manual.en.html</td><td class="file-config-discription">&larr;TM-U230 Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U375_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;TM-U375 Receipt Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U375_Slip_Manual.en.html</td><td class="file-config-discription">&larr;TM-U375 Slip Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U675_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;TM-U675 Receipt Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U675_Slip_Manual.en.html</td><td class="file-config-discription">&larr;TM-U675 Slip Model Manual</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config directory-name" colspan="3">css  &emsp;&emsp;&lt;&ndash;css directory</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" >driver-manual.css</td><td class="file-config-discription">&larr;css for Driver Manuals</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child">printer-manual.css</td><td class="file-config-discription">&larr;css for Model Manuals</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config directory-name" colspan="3">img  &emsp;&emsp;&lt;&ndash;Image file directory</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-1.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-2.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-3.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-4.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-5.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-6.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-7.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-8.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-9.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config directory-name" colspan="3">text  &emsp;&emsp;&lt;&ndash;Manual(Text) file directory</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-Thermal_Manual.ja.txt</td><td class="file-config-discription">&larr;TM/BA Thermal Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-Impact_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;TM Impact Receipt Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;TM Slip Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000II_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-H6000II Receipt Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000II_Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-H6000II Slip Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000III_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-H6000III Receipt Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000III_Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-H6000III Slip Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000IV_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-H6000IV Receipt Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000IV_Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-H6000IV Slip Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-m10_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-m10 Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-m30_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-m30 Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T20_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T20 Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T20II_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T20II Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T70_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T70 Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T70ANK_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T70 ANK Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T70II_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T70II Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T70IIANK_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T70II ANK Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T88IV_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T88IV Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T88V_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T88V Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T88VI_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T88VI Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T90_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T90 Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T90ANK_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T90 ANK Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T90II_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-T90II Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">BA-T500II_Manual.ja.txt</td><td class="file-config-discription">&larr;BA-T500II Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U120_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-U120 Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U120II_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-U120II Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U220_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-U220 Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U230_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-U230 Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U375_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-U375 Receipt Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U375_Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-U375 Slip Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U675_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-U675 Receipt Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child">TM-U675_Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;TM-U675 Slip Model Manual (Japanese)</td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config directory-name" colspan="4">filter  &emsp;&emsp;&lt;&ndash; Filter package directory</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups_1.2.2-1_i386.deb</td><td class="file-config-discription">&larr;tmx-cups filter deb package (32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups_1.2.2-1_amd64.deb</td><td class="file-config-discription">&larr;tmx-cups filter deb package (64bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-1.2.2-1.i586.rpm</td><td class="file-config-discription">&larr;tmx-cups filter rpm package (32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-1.2.2-1.x86_64.rpm</td><td class="file-config-discription">&larr;tmx-cups filter rpm package (64bit)</td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config directory-name" colspan="4">backendbackend  &emsp;&emsp;&lt;&ndash; Backend package directory</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">pcs-3.17.0.0-1.i386.deb</td><td class="file-config-discription">&larr;Communication module deb package (32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">pcs-3.17.0.0-1.amd64.deb</td><td class="file-config-discription">&larr;Communication module deb package (64bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">pcs-3.17.0.0-1.i586.rpm</td><td class="file-config-discription">&larr;Communication module rpm package (32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">pcs-3.17.0.0-1.x86_64.rpm</td><td class="file-config-discription">&larr;Communication module rpm package (64bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmbaprn.RHEL.pp</td><td class="file-config-discription">&larr;SELinux policy module (for RHEL)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-backend-1.2.4.0-1.i386.deb</td><td class="file-config-discription">&larr;tmx-cups backend deb package (32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-backend-1.2.4.0-1.amd64.deb</td><td class="file-config-discription">&larr;tmx-cups backend deb package (64bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-backend-1.2.4.0-1.i586.rpm</td><td class="file-config-discription">&larr;tmx-cups backend rpm package (32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-backend-1.2.4.0-1.x86_64.rpm</td><td class="file-config-discription">&larr;tmx-cups backend rpm package (64bit)</td></tr>
+      <tr><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config directory-name" colspan="4">ppd  &emsp;&emsp;&lt;&ndash; PPD file directory</td></tr>
+      <tr><td>&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tm-ba-thermal-rastertotmt.ppd.gz</td><td class="file-config-discription">&larr;PPD file for TM BA Thermal</td></tr>
+      <tr><td>&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tm-impact-receipt-rastertotmu.ppd.gz</td><td class="file-config-discription">&larr;PPD file for TM Impact Receipt</td></tr>
+      <tr><td>&emsp;</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child" colspan="2">tm-slip-rastertotmu.ppd.gz</td><td class="file-config-discription">&larr;PPD file for TM Slip</td></tr>
+    </table><br>
+    <p>
+      The rpm package for openSUSE and deb package for Ubuntu are available for each package. In addition, <br>
+      these packages have package for Intel x86(32bit) and package for Intel x64(64bit) for each architecture.<br>
+    </p><br>
+    <br>
+
+
+<!--Operational environment-->
+    <hr>
+      <h2><a name="operational_environment">4. Operational environment</a></h2>
+    <hr>
+    <p>
+      This software supports the following environments.<br>
+      Operations in an unsupported environment are not guaranteed.<br>
+    </p>
+    <h3>* Operating System</h3>
+    <p class="simple-list">
+      - openSUSE 11.1<br>
+      - openSUSE 12.2<br>
+      - openSUSE 13.1<br>
+      - Red Hat Enterprise Linux 6.4<br>
+      - Red Hat Enterprise Linux 6.5<br>
+      - Ubuntu 9.04<br>
+      - Ubuntu 12.04<br>
+      - Ubuntu 14.04<br>
+    </p>
+    <h3>* Hardware:</h3>
+    <p class="simple-list">
+      - Intel x86(32bit) architecture.<br>
+      - Intel x86_64(64bit) architecture.<br>
+    </p>
+    <h3>* Related software</h3>
+    <p class="simple-list">
+      - CUPS Ver.1.2 or later<br>
+      <a class="indnt-url" href="http://www.cups.org/" target="_blank">http://www.cups.org/</a>
+    </p>
+    <br>
+    <p class="simple-list">
+      - libusb-1.0.0 or later<br>
+      <A class="indnt-url" href="http://www.libusb.org/" target="_blank">http://www.libusb.org/</A>
+    </p>
+    <h3>* Operations have been confirmed in the following environments.</h3>
+    <p class="dicription-env">
+      - openSUSE 11.1 environment<br>
+         - libusb-1_0-0-1.0.2-2.2<br>
+         - cups-1.3.9-7.1<br>
+    </p>
+    <p class="dicription-env">
+      - openSUSE 12.2 environment<br>
+         - libusb-1_0-0-1.0.9-3.1.2<br>
+         - cups-1.5.3-2.1.5<br>
+    </p>
+    <p class="dicription-env">
+      - openSUSE 13.1 environment<br>
+         - libusb-1_0-0-1.0.9-8.1.2<br>
+         - cups-1.5.4-12.17.1<br>
+    </p>
+    <p class="dicription-env">
+      - Red Hat Enterprise Linux(RHEL) 6.4 environment<br>
+         - libusb1-1.0.9-0.6.rc1.el6<br>
+         - cups-1.4.2-48.el6_3.3<br>
+    </p>
+    <p class="dicription-env">
+      - Red Hat Enterprise Linux(RHEL) 6.5 environment<br>
+         - libusb1-1.0.9-0.6.rc1.el6<br>
+         - cups-1.4.2-52.el6_5.2<br>
+    </p>
+    <p class="dicription-env">
+      - Ubuntu 9.04 environment<br>
+         - libusb-1.0-0-2:1.0.0-1<br>
+         - cups-1.3.9-17ubuntu3.4<br>
+    </p>
+    <p class="dicription-env">
+      - Ubuntu 12.04 environment<br>
+         - libusb-1.0-0-2:1.0.9~rc3-2ubuntu1<br>
+         - cups-1.5.3-0ubuntu8.6<br>
+    </p>
+    <p class="dicription-env">
+      - Ubuntu 14.04 environment<br>
+         - libusb-1.0-0-2:1.0.17-1ubuntu2<br>
+         - cups-1.7.2-0ubuntu1.5<br>
+    </p>
+    <h3>* You can check information on the above packages for your environment as follows.</h3>
+    <p class="dicription-env">
+      - openSUSE 11.1/12.2/13.1 environment<br>
+        How to check libusb-1_0-0<br>
+    </p>
+    <p class="exam-command">
+      1. Checking names of the installed packages.<br>
+      $ rpm -qa | grep libusb-1_0-0<br>
+      libusb-1_0-0-1.0.2-2.2<span class="pad10">&larr;Displayed details</span><br>
+    </p>
+    <br>
+    <p class="exam-command">
+      2. Checking details of the package displayed by the above command.<br>
+      $ rpm -qi libusb-1_0-0-1.0.2-2.2
+    </p>
+    <p class="dicription-env">
+      <br>
+        How to check cups<br>
+    </p>
+    <p class="exam-command">
+      1. Checking names of the installed packages.<br>
+      $ rpm -qa | grep cups<br>
+      &middot;&middot;&middot;<br>
+      cups-1.3.9-7.1<span class="pad10">&larr;Displayed details</span><br>
+      &middot;&middot;&middot;<br>
+    </p>
+    <p class="exam-command">
+      2. Checking details of the package displayed by the above command.<br>
+      $ rpm -qi cups-1.3.9-7.1<br>
+    </p>
+    <br>
+    <p class="dicription-env">
+      - Red Hat Enterprise Linux(RHEL) 6.4/6.5 environment<br>
+        How to check libusb1-1.0<br>
+    </p>
+    <p class="exam-command">
+      1. Checking names of the installed packages.<br>
+      $ rpm -qa | grep libusb1<br>
+      libusb1-1.0.9-0.6.rc1.el6.x86_64<span class="pad10">&larr;Displayed details</span><br>
+    </p>
+    <br>
+    <p class="exam-command">
+      2. Checking details of the package displayed by the above command.<br>
+      $ rpm -qi libusb1-1.0.9-0.6.rc1.el6.x86_64
+    </p>
+    <p class="dicription-env">
+      <br>
+        How to check cups<br>
+    </p>
+    <p class="exam-command">
+      1. Checking names of the installed packages.<br>
+      $ rpm -qa | grep cups<br>
+      &middot;&middot;&middot;<br>
+      cups-1.4.2-48.el6_3.3.x86_64<span class="pad10">&larr;Displayed details</span><br>
+      &middot;&middot;&middot;<br>
+    </p>
+    <p class="exam-command">
+      2. Checking details of the package displayed by the above command.<br>
+      $ rpm -qi cups-1.4.2-48.el6_3.3.x86_64<br>
+    </p>
+    <br>
+    <p class="dicription-env">
+      - Ubuntu 9.04/12.04/14.04 environment<br>
+        How to check libusb-1.0-0<br>
+    </p>
+    <p class="exam-command">
+      $ dpkg-query -l libusb-1.0-0<br>
+    </p>
+    <p class="dicription-env">
+      <br>
+        How to check cups<br>
+    </p>
+    <p class="exam-command">
+      $ dpkg-query -l cups<br>
+    </p>
+    <br>
+
+
+<!--How to Install-->
+    <hr>
+      <h2><a name="how_to_install">5. How to Install</a></h2>
+    <hr>
+    <h3>5.1. Install the package which is required in your environment.</h3>
+    <p>
+      * Check to see if you are connected to the Internet before obtaining 
+       the required package.<br>
+    </p>
+    <p class="dicription-inst">
+      - openSUSE 11.1 environment<br>
+        1. Download the package for libusb-1_0-0.<br>
+    </p>
+    <p class="dicription-inst-child">
+        You can download the package for openSUSE from the following site at the time of writing, May 2015. <br>
+      <br>
+      - x86 (32-bit) architecture<br>
+      <a class="indnt-url" href="http://download.opensuse.org/distribution/11.4/repo/oss/suse/i586/libusb-1_0-0-1.0.8-4.1.i586.rpm" target="_blank">http://download.opensuse.org/distribution/11.4/repo/oss/suse/i586/libusb-1_0-0-1.0.8-4.1.i586.rpm</a><br>
+      <br>
+      - x86_64 (64-bit) architecture<br>
+      <a class="indnt-url" href="http://download.opensuse.org/distribution/11.4/repo/oss/suse/x86_64/libusb-1_0-0-1.0.8-4.1.x86_64.rpm" target="_blank">http://download.opensuse.org/distribution/11.4/repo/oss/suse/x86_64/libusb-1_0-0-1.0.8-4.1.x86_64.rpm</a><br>
+    </p>
+    <p class="dicription-inst">
+      <br>
+      2. Install the downloaded package.<br>
+    </p>
+    <p class="dicription-inst-child">
+        <span class="exam-title">Example) x86 (32-bit) architecture</span><br>
+    </p>
+    <p class="exam-command-install">
+        # rpm -i libusb-1_0-0-1.0.8-4.1.i586.rpm<br>
+    </p>
+    <p class="note-title">
+        Note)
+    </p>
+    <p class="note-description">
+        ! You need root privileges for the installation.<br>
+    </p>
+    <p class="dicription-inst">
+      - openSUSE 12.2/13.1 environment<br>
+        Because libusb-1_0-0 has been installed by default, you don&rsquo;t have to install it.<br>
+    </p>
+    <p class="dicription-inst">
+      - Red Hat Enterprise Linux(RHEL) 6.4/6.5 environment<br>
+        Because libusb1-1.0 has been installed by default, you don&rsquo;t have to install it.<br>
+    </p>
+    <p class="dicription-inst">
+      - Ubuntu 9.04 environment<br>
+        1. Use the following command to install libusb-1.0-0.<br>
+    </p>
+    <p class="dicription-inst-child">
+        # apt-get install libusb-1.0-0=2:1.0.0-1<br>
+    </p>
+    <p class="dicription-inst">
+      <br>
+        2. Use the following command to update the CUPS package.<br>
+    </p>
+    <p class="dicription-inst-child">
+        # apt-get install cups<br>
+    </p>
+    <p class="note-title">
+        Note)<br>
+    </p>
+    <p class="note-description">
+        ! You need root privileges for the installation.<br>
+    </p>
+    <p class="note-description">
+        ! If the necessary package is not installed by the above procedure, run the following command and reinstall the package.<br>
+        # apt-get update<br>
+    </p>
+    <p class="dicription-inst">
+      - Ubuntu 12.04/14.04 environment<br>
+        Because libusb-1.0-0 has been installed by default, you don&rsquo;t have to install it.<br>
+    </p>
+    <h3>5.2. Installing driver</h3>
+    <br>
+    <p class="dicription-inst-driv">
+      * Run install.sh.<br><br>
+      Run install.sh by either clicking the install.sh icon. Or,
+      enter to the directory where the installation package has been expanded,
+      then run install.sh by typing the following in the command line prompt.<br>
+      # ./install.sh
+    </p>
+    <br>
+    <p class="dicription-inst-driv">
+        Note)<br>
+    </p>
+    <p class="dicription-inst-driv-child">
+        ! You need root privileges for the installation.<br>
+        If you do not have root privileges, install.sh will execute the sudo command. Type the password.<br>
+    </p>
+    <p class="dicription-inst-driv-child">
+        ! Switch the printer off before installing the driver.<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * If you have a previous version of TM/BA Series Printer Driver for Linux installed, 
+        you must uninstall the previous version first. When previous version found, 
+        detailed information and the message asking if you wish to uninstall 
+        will be shown.<br>
+        If no problem, enter "y" and press the Enter key.
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+      <span class="exam-title">Message example)</span><br>
+      Incompatible version of TM/BA series printer driver found!<br>
+      Before the installation, package:"tmt-cups-1.3.x.x" must be uninstalled.<br>
+      <span class="pad05">Packages to be uninstalled:</span><br>
+    </p>
+    <p class="package-list">
+        tmt-cups-1.0.3-1<br>
+        epson-cups-escpos-1.0.12.0-1<br>
+        ep-escpos-2.3.2.90-1<br>
+        ep-core-2.3.2.90-1<br>
+        ep-client-2.3.2.90-1<br>
+    </p>
+    <p class="dicription-inst-driv-child">
+      <br>
+      Uninstall the incompatible printer driver: tmt-cups-1.3.x.x  [y/n]? y<br>
+      ...(Omitted)<br>
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+      - After all uninstallation is finished, if any printer 2is using the 
+        uninstalled driver, the message asking if you wish to delete the 
+        printers will be shown.<br>
+        If no problem, enter "y" and press the Enter key.<br>
+        (If you don&rsquo;t delete the printers, they will remain in error status.)<br>
+        (When no printer is using the uninstalled driver, the confirmation will be skipped.)<br>
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+      <span class="exam-title">Message example)</span><br>
+      Delete printers that use the driver you have uninstalled ahead [y/n]? y<br>
+      Deleting printer: TM-T88IV<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * After determining the environment, information about the package to be 
+        installed and the distribution will be displayed. <br>
+        If the information is correct, enter "y" and press the Enter key.<br>
+        <br>
+    </p>
+    <p class="dicription-inst-driv-child">
+        <span class="exam-title">Example) Message for openSUSE 13.1 x86(32bit) architecture</span><br>
+        Install tmx-cups-2.0.3.0 into openSUSE 13.1 x86(32bit) [y/n]? <br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * If the displayed distribution is not the one you are installing,
+        enter "n" and press the Enter key. The distribution selection 
+        screen is displayed. Enter a number for your selection, and press 
+        the Enter key.<br>
+        Enter "0" and press the Enter key to cancel the installation.<br>
+        <br>
+        Please select your distribution.<br>
+        1.RHEL 6.4 x86(32bit)<br>
+        2.RHEL 6.4 x86_64(64bit)<br>
+        3.RHEL 6.5 x86(32bit)<br>
+        4.RHEL 6.5 x86_64(64bit)<br>
+        5.Ubuntu 12.04 x86(32bit)<br>
+        6.Ubuntu 12.04 x86_64(64bit)<br>
+        7.Ubuntu 14.04 x86(32bit)<br>
+        8.Ubuntu 14.04 x86_64(64bit)<br>
+        9.Ubuntu 9.04 x86(32bit)<br>
+        10.Ubuntu 9.04 x86_64(64bit)<br>
+        11.openSUSE 11.1 x86(32bit)<br>
+        12.openSUSE 11.1 x86_64(64bit)<br>
+        13.openSUSE 12.2 x86(32bit)<br>
+        14.openSUSE 12.2 x86_64(64bit)<br>
+        15.openSUSE 13.1 x86(32bit)<br>
+        16.openSUSE 13.1 x86_64(64bit)<br>
+        Select number [0(cancel)/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16]? <br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * Installation will start as you select the distribution
+    </p>
+    <br>
+    <br>
+
+
+<!--How to Set-->
+    <hr>
+      <h2><a name="how_to_set">6. How to Set</a></h2>
+    <hr>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * Device port setting<br>
+      <br>
+      You need to set a port when not using a USB port.<br>
+      Please refer to "7. Port Settings" for details.<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * Registering the printer to CUPS<br>
+      <br>
+      Turn the printer on before registering the printer to CUPS.<br>
+      <br>
+      Open CUPS WebAdmin <a href="http://localhost:631/" target="_blank">&lt;http://localhost:631/&gt;</a> on a web browser 
+      to register the printer to CUPS.<br>
+      <br>
+      Refer to CUPS information using the following URLs.<br>
+      <a class="indnt-url" href="http://localhost:631/help/" target="_blank">http://localhost:631/help/</a><br>
+      <a class="indnt-url" href="http://www.cups.org/" target="_blank">http://www.cups.org/</a><br>
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+      - Select the [Administration] tab and click "Add Printer."<br>
+      <br>
+      <img src="./img/6-1.png" width="80%"></img>
+      <br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv-child">
+      - Select "EPSON TM/BA Printer" in the Device selection screen,
+        then click "Continue."
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      - In case of USB TM-T88V<br>
+        "EPSON TM/BA Printer (USB(ESDPRT001) TM-T88V)"<br>
+    </p>
+    <p class="dicription-inst-selectmenu">
+      - In case of Parallel<br>
+        "EPSON TM/BA Printer (Parallel(/dev/parport0) TM-T88V)"
+    </p>
+    <p class="dicription-inst-selectmenu">
+      - In case of Serial<br>
+        "EPSON TM/BA Printer (Serial(/dev/ttyS0) TM-T88V)"<br>
+    </p>
+    <p class="dicription-inst-selectmenu">
+      - In case of Ethernet<br>
+        "EPSON TM/BA Printer (Ethernet(192.168.0.10) TM-T88V)"<br>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-3.png" width="80%"></img>
+      <br>
+      <br>
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+      - The "Add New Printer" screen appears. Enter the Printer Name,
+        Location, and Description, then click "Continue."
+      <br>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-4.png" width="80%"></img>
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+    - Select Make: "Epson" in the Make/Manufacturer selection screen,
+      then click "Continue."<br>
+      Select the TM generic model corresponding the registering printer 
+      model, then click "Add Printer."<br>
+      Each printer model manual describes which TM generic model should 
+      be used for the printer.<br>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      - TM/BA Generic Thermal Printer (TM-T88V etc.)<br>
+        "EPSON TM BA Thermal (rastertotmt) (en,en,zh_CN)"<br>
+    </p>
+    <p class="dicription-inst-selectmenu">
+      - TM Generic Impact Receipt Printer (TM-U220 etc.)<br>
+        "EPSON TM Impact Receipt (rastertotmu) (en)"<br>
+    </p>
+    <p class="dicription-inst-selectmenu">
+      - TM Generic Slip Printer (TM-H6000IV Slip etc.)<br>
+        "EPSON TM Slip (rastertotmu) (en)"<br>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-5.png" width="80%"></img>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-6.png" width="80%"></img>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv-child">
+      - The "Set Printer Options" screen appears. <br>
+        Confirm and set the printer options.<br>
+        Refer to the printer model manual for details.<br>
+        <br>
+        <span class="exam-title">Example) For TM-T88V</span><br>
+        <span class="pad05">TM-T88V_Manual.en.html</span><br>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-7.png" width="80%"></img>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-8.png" width="80%"></img>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-9.png" width="80%"></img>
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-inst-driv-child">
+      Note)
+    </p>
+    <p class="dicription-inst-driv-child">
+    ! Cancel the automatic recognition screen if it is displayed by 
+      the printer setting tool included in the distribution.
+    </p>
+    <br>
+    <br>
+
+
+<!--Port settings-->
+    <hr>
+    <h2><a name="port_settings">7. Port settings</a></h2>
+    <hr>
+    <p>
+      Port setting is required if port other than USB is used. <br>
+      Please execute one of the following port setting tools depending on the 
+      situation:<br>
+    </p>
+    <table>
+      <tr><td>- /usr/sbin/tmportconfig</td><td> Menu based port setting tool</td></tr>
+      <tr><td>- /usr/sbin/tmpcsconfig</td><td> Command line based port setting tool</td></tr>
+    </table>
+    <p>
+      For USB, the port will be added automatically by PnP function when the 
+      device is connected while during online. So usually port setting isn&rsquo;t 
+      needed.<br>
+    </p>
+    <p>
+      A customization ID (-secc0000 etc.) is added for the customized version driver 
+      after the port setting tool name. However, for the simplification, the 
+      customization ID is omitted in the rest of this manual or in model manuals.  
+    </p>
+    <br>
+    <p class="dicription-port-set">
+      Note)<br>
+        ! You need root privileges for port settings.<br>
+        ! Turn the printer off while setting the port.<br>
+    </p>
+    <h3>7.1. In case of adding port</h3>
+    <h4>7.1.1. Add new port: Menu based setting</h4>
+    <br>
+    <p class="dicription-gt-port-set">
+      Execute tmportconfig as root.<br>
+        # tmportconfig<br>
+    </p>
+    <br>
+    <p>
+      &gt; TM/BA Printer Port Configuration Tool<br>
+      &gt; <br>
+      &gt; Please choose one of the following options:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      Input the number value of "Add new port", press Enter key.
+    </p>
+    <br>
+    <p>
+      &gt; Add New Port<br>
+      &gt; <br>
+      &gt; Please choose one of the following device types:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      Input the value of "EPSON TM/BA Printer",<br>
+      then press the Enter key.
+    </p>
+    <br>
+    <p>
+      &gt; Communications Type<br>
+      &gt; <br>
+      &gt; Please choose one of the following port types:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      Input the value that corresponds to the port&rsquo;s interface type,<br>
+      then press the Enter key.
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Serial Port</B>
+    </p>
+    <p>
+      &gt; Serial Port Name<br>
+      &gt; <br>
+      &gt; Please choose one of the following port names:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      Select the serial port to be used.
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Baud Rate<br>
+      Select one of 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200 bps.
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Parity<br>
+      Select one from None, Odd, Even.
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Stop Bits<br>
+      Select one from 1 bit, 2 or more bits.
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Flow Control<br>
+      Select either Hardware or Xon/Xoff
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Parallel Port</B>
+    </p>
+    <p>
+      &gt; Parallel Port Name<br>
+      &gt; <br>
+      &gt; Please choose one of the available parallel ports:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      Select the parallel port to be used.
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Ethernet Port</B>
+    </p>
+    <p>
+      &gt; Ethernet Port Name<br>
+      &gt; <br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; Please input an IP address: (ex 192.168.0.10)<br>
+      Input IP address then press the Enter key.
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Do you want to save the changes you have made (Y or N)<br>
+      Input Y then press the Enter key.
+    </p>
+    <br>
+
+    <br>
+    <h4>7.1.2. Add new port: Command line based setting</h4>
+    <br>
+    <p class="dicription-port-set">
+      Execute tmpcsconfig with add option as root.
+    </p>
+    <br>
+    <p class="dicription-gt-port-set">
+      <span class="exam-title">Example)</span><br>
+      # tmpcsconfig add serial /dev/ttyS0
+    </p>
+    <br>
+    <br>
+    <table class="tmpcsconfig">
+      <tr><td colspan="3">&gt; New port added successfully:</td></tr>
+      <tr><td colspan="2">&gt; PortName</td><td>: ESDPRT002</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PortType</td><td>: Serial(1)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Name</td><td>: /dev/ttyS0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">DeviceType</td><td>: PCS_PARAM_DEVICE_TYPE_TM(0)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig" colspan="2">Initializing with default setting for Serial...</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig" colspan="2">Initial setting done successfully.</td></tr>
+      <tr><td colspan="3">&gt; To check the port settings, please use enum ESDPRT002 option.</td></tr>
+    </table>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig add parallel /dev/parport0<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig add ethernet 192.168.192.100<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+
+    <br>
+    <h3>7.2. In case of viewing port settings</h3>
+    <p>
+      You can use exclusively tmpcsconfig for viewing port settings.<br>
+      (You can&rsquo;t view detailed port settings with tmportconfig.)<br>
+    </p>
+    <h4>7.2.1. List all ports for PCS(Port Communication Service)</h4>
+    <br>
+    <p class="dicription-port-set">
+      Please execute tmpcsconfig with enum option.<br>
+      <br>
+      <span class="exam-title">Example)</span><br>
+      # tmpcsconfig enum<br>
+      <br>
+      &gt; PortName  :  PortType,  Port,  ModelName<br>
+      &gt; -----------------------------------------------------------------------------------------------------------------<br>
+      &gt; ESDPRT001 :  PortType=USB,  Port=//?/USB#VID_04b8&amp;PID_0202#?,  ModelName=TM-T88V<br>
+      &gt; ESDPRT002 :  PortType=Serial,  Port=/dev/ttyS0,  ModelName=n/a<br>
+      &gt; ESDPRT003 :  PortType=Parallel,  Port=/dev/parport0,  ModelName=n/a<br>
+      &gt; ESDPRT004 :  PortType=Ethernet,  Port=192.168.192.100,  ModelName=n/a<br>
+    </p>
+    <br>
+    <h4>7.2.2. View each port setting</h4>
+    <p>
+      Please execute tmpcsconfig with enum &lt;portname&gt; option.<br>
+      By turning on the printer before the command execution, you can get basic information 
+      ("ModelName", "DeviceID").
+    </p>
+    <br>
+    <p class="dicription-port-set">
+      <span class="exam-title">Example)</span><br>
+      # tmpcsconfig enum ESDPRT002<br>
+    </p>
+    <table class="tmpcsconfig">
+      <tr><td colspan="2">&gt; PortName</td><td>: ESDPRT002</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PortType</td><td>: Serial(1)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Name</td><td>: /dev/ttyS0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">ModelName</td><td>: TM-T88V</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">DeviceType</td><td>: PCS_PARAM_DEVICE_TYPE_TM</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">DeviceID</td><td>: 32(0x20)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">FirmwareVer</td><td>: 30.23 ESC/POS</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Baudrate</td><td>: 19200</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Databit</td><td>: 8</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Parity</td><td>: None</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Stopbits</td><td>: 1</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Handshake</td><td>: AUTO</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">BuzzerSelect</td><td>: 0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Pulse1BeepTimes</td><td>: 0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Pulse2BeepTimes</td><td>: 1</td></tr>
+    </table><br>
+    <p class="dicription-port-set">
+      <br>
+      # tmpcsconfig e 4<br>
+    </p>
+    <table class="tmpcsconfig">
+      <tr><td colspan="2">&gt; PortName</td><td>: ESDPRT004</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PortType</td><td>: Ethernet(4)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Name</td><td>: 192.168.192.100</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">ModelName</td><td>: TM-T88V</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">DeviceType</td><td>: PCS_PARAM_DEVICE_TYPE_TM</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">DeviceID</td><td>: 32(0x20)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">FirmwareVer</td><td>: 30.23 ESC/POS</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">MonitorInterval</td><td>: 3000</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">MonitorTimeout</td><td>: 2000</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">WiredPowerOffCount</td><td>: 3</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">WiredPowerOfflineCount</td><td>: 1</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">WirelessPowerOffCount</td><td>: 3</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">WirelessPowerOfflineCount</td><td>: 1</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PowerOffMonitorTimeout</td><td>: 2000</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PowerOffMonitorCount</td><td>: 3</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PowerOffMonitorInterval</td><td>: 1000</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">BuzzerSelect</td><td>: 0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Pulse1BeepTimes</td><td>: 0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Pulse2BeepTimes</td><td>: 1</td></tr>
+    </table><br>
+
+    <h3>7.3. In case of changing port settings</h3>
+    <h4>7.3.1. Configure existing port: Menu based setting</h4>
+    <br>
+    <p class="dicription-gt-port-set">
+      Execute tmportconfig as root.<br>
+        # tmportconfig<br>
+    </p>
+    <br>
+    <p>
+      &gt; TM/BA Printer Port Configuration Tool<br>
+      &gt; <br>
+      &gt; Please choose one of the following options:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      Input the number value of "Configure existing port" then press the Enter key.
+    </p>
+    <br>
+    <p>
+      &gt; Configure Existing Port<br>
+      &gt; <br>
+      &gt; Please choose one of the existing ports:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      Input the number value of the port setting to be changed then 
+      press the Enter key.<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Serial Port</B>
+    </p>
+    <p>
+      &gt; Serial Port Name<br>
+      &gt; <br>
+      &gt; Please choose one of the following port names:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      Select the serial port to be used.<br>
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Baud Rate<br>
+      Select one of 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200 bps.
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Parity<br>
+      Select one from None, Odd, Even.
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Stop Bits<br>
+      Select one from 1 bit, 2 or more bits.
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Flow Control<br>
+      Select either Hardware or Xon/Xoff
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Parallel Port</B>
+    </p>
+    <p>
+      &gt; Parallel Port Name<br>
+      &gt; <br>
+      &gt; Please choose one of the available parallel ports:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      Select the parallel port to be used.
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Ethernet Port</B>
+    </p>
+    <p>
+      &gt; Ethernet Port Name<br>
+      &gt; <br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; Please input an IP address: (ex 192.168.0.10)<br>
+      Input IP address then press the Enter key.
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Do you want to save the changes you have made (Y or N)<br>
+      Input Y then press the Enter key.
+    </p>
+    <br>
+    <br>
+    <h4>7.3.2. Configure existing port: Command line based setting</h4>
+    <p class="dicription-port-set">
+      Please execute tmpcsconfig with set option.<br>
+    </p>
+    <br>
+    <p class="dicription-gt-port-set">
+      <span class="exam-title">Example)</span><br>
+      # tmpcsconfig set ESDPRT002 baudrate 115200<br>
+    </p>
+    <p>
+      &gt; SetPortConfigNumber done successfully for<br>
+      &gt; <span class="pad05">PortName=ESDPRT002, ControlID=Baudrate, Data=115200</span>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig set ESDPRT002 stopbits 1<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig set ESDPRT002 parity even<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      (using shortened keywords)<br>
+      # tmpcsconfig s 2 h x<br>
+    </p>
+    <p>
+      &gt; SetPortConfigNumber done successfully for<br>
+      &gt; <span class="pad05">PortName=ESDPRT002, ControlID=Handshake, Data=XON/XOFF</span><br>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig s 4 mi 10000<br>
+    </p>
+    <p>
+      &gt; SetPortConfigNumber done successfully for<br>
+      &gt; <span class="pad05">PortName=ESDPRT004, ControlID=MonitorInterval(MI), Data=10000</span><br>
+      <br>
+      When you want to check the settings, please use enum option for the port.<br>
+    </p>
+    <br>
+    <br>
+    <h3>7.4. In case of deleting the port</h3>
+    <h4>7.4.1. Delete existing port: Menu based setting</h4>
+    <br>
+    <p class="dicription-gt-port-set">
+      Execute tmportconfig as root.<br>
+      # tmportconfig<br>
+    </p>
+    <br>
+    <p>
+      &gt; TM/BA Printer Port Configuration Tool<br>
+      &gt; <br>
+      &gt; Please choose one of the following options:
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      Input the number value of "Delete existing port" then press the Enter key.
+    </p>
+    <br>
+    <p>
+      &gt; Delete Existing Port<br>
+      &gt; <br>
+      &gt; Please choose one of the existing ports:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      Input the number value of the port to be deleted then press the Enter key.
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Do you want to save the changes you have made (Y or N)<br>
+      Input Y then press the Enter key.<br>
+    </p>
+    <br>
+    <br>
+    <h4>7.4.2. Delete existing port: Command line based setting</h4>
+    <br>
+    <p class="dicription-gt-port-set">
+      Please execute tmpcsconfig with delete option.<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <span class="exam-title">Example)</span><br>
+      # tmpcsconfig delete ESDPRT001<br>
+    </p>
+    <p>
+      &gt; PortName: ESDPRT001 deleted successfully.
+    </p>
+    <br>
+    <br>
+    <h3>7.5. Option specification tips for tmpcsconfig</h3>
+    <br>
+    <p class="dicription-gt-port-set">
+      Keywords can be shortened, for example:<br>
+        {add -&gt; a, enumerate -&gt; e, set -&gt; s, delete -&gt; d},<br>
+        {ESDPRT001 -&gt; 1 or 001, ESDPRT002 -&gt; 2 or 002, ...},<br>
+        {baudrate -&gt; ba, stopbits -&gt; st, parity -&gt; p, ...},<br>
+        {MonitorInterval -&gt; mi, MonitorTimeout -&gt; mt, ...}, and so on.
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <span class="exam-title">Example)</span><br>
+      # tmpcsconfig s 2 p e<br>
+      is equivalent to<br>
+      # tmpcsconfig set ESDPRT002 parity even<br>
+    </p>
+    <br>
+    <p>
+      When you want to know about shortened keywords, please input &#63; 
+      instead of correct keyword.<br>
+      Please take care of the number of options to be specified, or 
+      only error messages will be shown.<br>
+    </p>
+    <br>
+    <p class="dicription-gt-port-set">
+      <span class="exam-title">Example)</span><br>
+      # tmpcsconfig s 2 &#63; &#63;<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+      &gt; Invalid parameter for set option: &#63;<br>
+      &gt; <span class="pad05">Shortened keywords available:</span><br>
+      &gt; <span class="pad05">[Serial port setting]</span><br>
+      &gt; <span class="pad10">ba for Baudrate</span><br>
+      &gt; <span class="pad10">da for Databit</span><br>
+      &gt; <span class="pad10">p for Parity</span><br>
+      &gt; <span class="pad10">st for Stopbits</span><br>
+      &gt; <span class="pad10">h for Handshake</span><br>
+      &gt; <span class="pad10">sendt for SendTimeout</span><br>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig s 2 p &#63;<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+      &gt; Invalid parameter for setting parity option: &#63;<br>
+      &gt; <span class="pad05">Shortened keywords available:</span><br>
+      &gt; <span class="pad10">n for None</span><br>
+      &gt; <span class="pad10">o for Odd</span><br>
+      &gt; <span class="pad10">e for Even</span><br>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+    <br>
+    <br>
+
+
+<!--Transmission function for a user-defined file-->
+    <hr>
+    <h2><a name="transmission_function">8. Transmission function for a user-defined file</a></h2>
+    <hr>
+    <h3>8.1. Overview</h3>
+    <p>
+      An ESC/POS command file created by a user is called a user-definition file. Placing a user-defined 
+      file at the designated location enables the user to transmit command data in the file to the printer 
+      at a fixed timing for each page or job.
+    </p>
+    <br>
+    <h3>8.2. Transmission timing and naming conventions for the user-defined file</h3>
+    <p>
+      File storage folder: /var/lib/tmx-cups/<br>
+    </p>
+    <table class="u-def-file" cellpadding="1" cellspacing="1">
+      <thead>
+        <tr><th class="u-def-file">Naming convention</th><th class="u-def-file">Transmission timing</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="u-def-file">{printer_name}_StartJob.prn</td><td class="u-def-file">When starting to print (after initializing the printer)</td></tr>
+        <tr><td class="u-def-file">{printer_name}_EndJob.prn</td><td class="u-def-file">After printing (before cutting the document)</td></tr>
+        <tr><td class="u-def-file">{printer_name}_StartPage.prn</td><td class="u-def-file">When starting to print each page (after initializing the page)</td></tr>
+        <tr><td class="u-def-file">{printer_name}_EndPage.prn</td><td class="u-def-file">After printing a page (before cutting the page)</td></tr>
+      </tbody>
+    </table>
+    <p>
+      The printer_name indicates the registered printer name to CUPS.
+    </p>
+    <p class="exam-u-def">
+      <span class="exam-title">Example)</span>
+             When the registered printer name is tmtprinter and you
+             want to output a logo at the beginning, register the
+             following file.<br>
+      <br>
+      /var/lib/tmx-cups/tmtprinter_StartJob.prn<br>
+    </p>
+    <p>
+      Note)
+    </p>
+    <p class="note-u-def">
+      ! You need root privilege to store the user-defined file in 
+        /var/lib/tmx-cups/.<br>
+    </p>
+    <p class="note-u-def">
+      ! Grant the appropriate permissions to the user-defined file 
+        according to its function. Transmission is not carried out if 
+        the printing user does not have read permission to the 
+        user-defined file.<br>
+    </p>
+    <p class="note-u-def">
+      ! The printer may malfunction if the user-defined file contains 
+        any graphic commands whose pattern matches real-time commands.<br>
+    </p>
+    <p class="note-u-def">
+      ! If a user-defined file is stored in any of the subordinate 
+        directories, uninstallation of this package does not delete the
+        directory which contains the file. <br>
+    </p>
+
+    <br>
+    <h3>8.3. Printing text data</h3>
+    <p>
+      You can print the text data if the user-defined file under 
+      /var/lib/tmx-cups contains text data.<br>
+    </p>
+    <p class="exam-u-def">
+      <span class="exam-title">Example)</span>
+             When tmtprinter_StartJob.prn contains the following
+             line of text data.<br>
+    </p>
+    <p>
+      ======<br>
+      Welcome!<br>
+      <br>
+      ======<br>
+      The above text is printed each time you print from tmtprinter 
+      at the top of the print job.<br>
+    </p>
+    <br>
+    <p>
+      Note)
+    </p>
+    <p class="note-u-def">
+      ! The text data may not be printed correctly if the specified 
+        character code is other than ASCII.
+    </p>
+    <p class="note-u-def">
+      ! Use &lt;LF&gt;(0x0A) for a line feed.<br>
+        Printing operations are not guaranteed if &lt;CR&gt;(0x0D) is used.
+    </p>
+    <p class="note-u-def">
+      ! The text data may not be printed correctly if a line feed &lt;LF&gt;
+        is not present at the end of a line.
+    </p>
+    <p class="note-u-def">
+      ! Don&rsquo;t include paper handling commands such as &lt;FF&gt;(0x0C), or 
+        the printer may malfunction.
+    </p>
+    <p class="note-u-def">
+      ! The printing result is not guaranteed if the user-defined file 
+        is edited or deleted while printing.<br>
+        Do not change the user-defined file until printing is complete.
+    </p>
+    <br>
+    <br>
+
+
+
+<!--Multi-tone conversion tool-->
+    <hr>
+    <h2><a name="multi-tone_conversion_tool">9. Multi-tone conversion tool</a></h2>
+    <hr>
+    <h3>9.1 Overview</h3>
+    <p>
+      This tool converts an image file into ESC/POS command data.<br>
+      You can use this tool to print multi-tone graphic data in 
+      a TM/BA series thermal printer with the ability of printing 
+      multi-tone graphic data.<br>
+      Also, you can print a logo by registering the converted 
+      command data file in the folder where user-defined files are 
+      stored.<br>
+    </p>
+    <br>
+    <h3>9.2 Installation destination and the command name</h3>
+    <p>
+      /usr/bin/tmbmptobin
+    </p>
+    <p>
+      A customization ID (_secc0000 etc.) is added for the customized version driver 
+      after the multi-tone conversion tool name. However, for the simplification, the 
+      customization ID is omitted in the rest of this manual.  
+    </p>
+    <br>
+    <h3>9.3 Tool options</h3>
+    <p>
+      Syntax: tmbmptobin [option] input_BMP_file   output_BIN_file
+    </p>
+    <table class="m-tone-options">
+      <tr><td colspan="3">Options (default settings are in [])</td></tr>
+      <tr><td></td><td>[-16s], -2s</td><td>Multi-tone, Monochrome</td></tr>
+      <tr><td></td><td>[-left], -center, -right</td><td>Printing position</td></tr>
+      <tr><td></td><td>-b65 to [-b100] to -b135</td><td>Brightness (in 5 units)</td></tr>
+      <tr><td></td><td>-r180</td><td>Rotation by 180 degrees</td></tr>
+      <tr><td></td><td>[-80mm], -58mm</td><td>Paper width 80mm or 58mm</td></tr>
+      <tr><td></td><td>[-180dpi], -203dpi</td><td>Resolution 180dpi or 203dpi</td></tr>
+      <tr><td></td><td>[-h80] to -h415</td><td>Band Lines 80 to 415</td></tr>
+    </table>
+    <p>
+      Note)
+    </p>
+    <p class="note-m-tone">
+      ! Multi-tone option can be used only for the TM/BA series thermal 
+        printers that can print multi-tone graphic data. (Ex: TM-T88V)
+    </p>
+    <p class="note-m-tone">
+      ! The tool supports Windows BMP files only.<br>
+        Uncompressed 1-bit, 4-bit, 8-bit, and 24-bit BMP files are supported.
+    </p>
+    <p class="note-m-tone">
+      ! Take care that the image size does not exceed the maximum printable 
+        width of the printer.<br>
+        The image is not printed if it exceeds the maximum printable width.<br>
+        Ex) When using 80mm paper, resolution 180dpi: 510 pixels or less
+    </p>
+    <br>
+    <h3>9.4 Logo registration</h3>
+    <p>
+      You can insert a log in the print page by registering a binary 
+      file, which has been created by converting an image file into 
+      command data, into the folder where user-defined files are 
+      stored.<br>
+      See "8. Transmission function for a user-defined file" for details.
+    </p>
+    <br>
+    <h3>9.5 Coupon file printing</h3>
+    <p>
+      The following prints an image file such as a coupon promptly. <br>
+      <br>
+      Example) When the registered printer name is tmtprinter.<br>
+      ======<br>
+      #&ensp;tmbmptobin&ensp;&ensp;imagedata.bmp&ensp;&ensp;/var/lib/tmx-cups/tmtprinter_StartJob.prn<br>
+      #&ensp;echo&ensp;&quot;&quot;&ensp;|&ensp;lpr&ensp;-P&ensp;tmtprinter<br>
+      ======<br>
+    </p>
+    <p>
+      Note)
+    </p>
+    <p class="note-m-tone">
+      ! The above overwrites tmtprinter_StartDocStartJob.prn if the 
+        file is already registered.
+    </p>
+    <br>
+    <br>
+
+
+<!--How to Uninstall-->
+    <hr>
+    <h2><a name="how_to_uninstall">10. How to Uninstall</a></h2>
+    <hr>
+    <p>
+      The following describes how to uninstall this software.
+    </p>
+    <p>
+      - Change directory where the installation package expanded,
+        and execute uninstall.sh shell script.<br>
+    </p>
+    <p class="note-m-tone">
+        # ./uninstall.sh
+    </p>
+    <p>
+      Note)
+    </p>
+    <p class="note-m-tone">
+        ! You need root privilege to uninstall the software.
+    </p>
+    <p class="note-m-tone">
+        ! The /var/lib/tmx-cups directory is not deleted if there are any 
+          user data under this directory.
+    </p>
+    <p class="note-m-tone">
+        ! Printers that use this driver can be detected and deleted.
+    </p>
+    <br>
+    <br>
+
+
+<!--Notes and restrictions-->
+    <hr>
+    <h2><a name="notes_and_restrictions">11. Notes and restrictions</a></h2>
+    <hr>
+    <br>
+    <p class="dicription-notes">
+      * USB Plug and Play function may fail on specific situation.<br>
+      <br>
+        If USB device port isn&rsquo;t added automatically, please reboot the PC.
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * Printing may fail if the printer is registered by the 
+        distribution proprietary printer management tool.<br>
+      <br>
+        Register the printer using CUPS WebAdmin.
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * Printing does not immediately stop after cancelling a job.<br>
+      <br>
+        Jobs which the printer has once started printing cannot be canceled 
+        immediately.
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * By improper operation, there is a possibility that garbled characters 
+        may be printed after turning on the power.<br>
+      <br>
+        Do not turn the printer off or remove the communication cable 
+        while printing. 
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * Printing may not restart if the printer enters a suspension or 
+        hibernation state while printing or waiting for a print job.<br>
+      <br>
+        Do not allow the printer to enter the suspension or hibernation 
+        state. 
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * The horizontal lines may appear on the printed paper.<br>
+    </p>
+    <br>
+    <br>
+
+
+<!--Support information-->
+    <hr>
+    <h2><a name="support_information">12. Support information</a></h2>
+    <hr>
+    <p class="dicription-notes">
+      * For customers in North America, go to the following web site:<br>
+        <a href="http://www.epsonexpert.com/" target="_blank">http://www.epsonexpert.com/</a>
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * For customers in other countries, go to the following web site:<br>
+        <a href="https://download.epson-biz.com/?service=pos" target="_blank">https://download.epson-biz.com/?service=pos</a>
+    </p>
+    <br>
+    <br>
+
+
+<!--Modification from the old version-->
+    <hr>
+    <h2><a name="modification">13. Modification from the old version</a></h2>
+    <hr>
+    <p>
+      <b>* Ver. 2.0.3.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - The following printer is supported:<br>
+        - TM-T88VI<br>
+        - TM-m10<br>
+        - TM-m30<br>
+    </p>
+    <p class="dicription-mod">
+      - PPD files updated:<br>
+    </p>
+    <p class="dicription-mod-child">
+         [TM BA Thermal Printer]<br>
+          - Changed option name TmxPrintingSpeed to TmxPrintSpeed.<br>
+    </p>
+    <p class="dicription-mod">
+      - Filter updated.
+    </p>
+    <p class="dicription-mod">
+      - Backend updated.
+    </p>
+    <p class="dicription-mod">
+      - PCS(Port Communication Service) updated.
+    </p>
+    <p class="dicription-mod">
+      - Driver Manual updated:<br>
+      &nbsp;&nbsp;&nbsp;[7.2.2. View each port setting]<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modified setting of "Ethernet port".
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 2.0.2.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - PPD files updated:<br>
+    </p>
+    <p class="dicription-mod-child">
+         [TM BA Thermal Printer]<br>
+          - Changed option name TmxSpeed to TmxPrintingSpeed.<br>
+          - Added "Roll paper" sizes of 2000mm height.<br>
+          - Modified configuration of "Resolution."<br>
+          - Added "Speed control": Max. level 10.<br>
+    </p>
+    <p class="dicription-mod-child">
+         [TM Impact Receipt Printer]<br>
+          - Added "Roll paper" sizes of 2000mm height.<br>
+          - Modified configuration of "Resolution."<br>
+    </p>
+    <p class="dicription-mod">
+      - Added Ubuntu 14.04 support.
+    </p>
+    <p class="dicription-mod">
+      - The following problems have been solved:<br>
+    </p>
+    <p class="dicription-mod-child">
+        - Printing some postscript documents may fail because 
+          the default paper size (height) isn't large enough.<br>
+    </p>
+    <p class="dicription-mod-child">
+        - If the paper ends unexpectedly in printing a slip,
+          garbage characters might be printed.<br>
+    </p>
+    <p class="dicription-mod">
+      - PCS(Port Communication Service) updated.
+    </p>
+    <p class="dicription-mod">
+      - Installation and uninstallation scripts updated.
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 2.0.1.2</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - Installation and uninstallation scripts updated.
+    </p>
+    <p class="dicription-mod">
+      - Added Red Hat Enterprise Linux(RHEL) 6.4 support.
+    </p>
+    <p class="dicription-mod">
+      - Added Red Hat Enterprise Linux(RHEL) 6.5 support.
+    </p>
+    <p class="dicription-mod">
+      - Added SELinux support.
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 2.0.1.1</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - PCS(Port Communication Service) updated.
+    </p>
+    <p class="dicription-mod">
+      - Added openSUSE 13.1 support.
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 2.0.1.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - Added StatusAPI (Status Monitoring API) support.<br>
+         Optional package for StatusAPI provided separately:<br>
+          &emsp;tmx-stmapi-2.0.0-1<br>
+    </p>
+    <p class="dicription-mod">
+      - Backend updated.
+    </p>
+    <p class="dicription-mod">
+      - PCS(Port Communication Service) updated.
+    </p>
+    <p class="dicription-mod">
+      - PPD file for TM BA Thermal updated.
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 2.0.0.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+       - The following printers are supported:<br>
+         [TM generic models]<br>
+          - TM BA Thermal Printer<br>
+          - TM Impact Receipt Printer<br>
+          - TM Slip Printer<br>
+         [Supported models with the TM general models]<br>
+          - TM-H6000II (Receipt, Slip)<br>
+          - TM-H6000III (Receipt, Slip)<br>
+          - TM-H6000IV (Receipt, Slip)<br>
+          - TM-T70<br>
+          - TM-T70 ANK<br>
+          - TM-T90<br>
+          - TM-T90 ANK<br>
+          - TM-T90II<br>
+          - TM-U120<br>
+          - TM-U120II<br>
+          - TM-U230<br>
+          - TM-U375 (Receipt, Slip)<br>
+          - TM-U675 (Receipt, Slip)<br>
+    </p>
+    <p class="dicription-mod">
+      - Impact dot printers also supported by the same package.
+    </p>
+    <p class="dicription-mod">
+      - The driver package name changed. (tmt&ndash;cups&ndash;*&ensp;&ndash;&gt; tmx&ndash;cups&ndash;*)
+    </p>
+    <p class="dicription-mod">
+      - The version of the PPD file was changed into 2.0. <br>
+        (The previous PPD files cannot be used.)
+    </p>
+    <p class="dicription-mod">
+      - Installation and uninstallation scripts updated.
+    </p>
+    <p class="dicription-mod">
+      - Added openSUSE 12.2 support.
+    </p>
+    <p class="dicription-mod">
+      - Added Ubuntu 12.04 support.
+    </p>
+    <p class="dicription-mod">
+      - Added Ubuntu 12.04 support.
+    </p>
+    <p class="dicription-mod">
+      - PCS(Port Communication Service) updated. <br>
+      &nbsp;&nbsp;&nbsp;Modified setting of "Ethernet port".<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MonitorTimeout         :  500 -> 2000<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WiredPowerOffCount     :    1 ->    3<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WiredPowerOfflineCount :    0 ->    1<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PowerOffMonitorTimeout : 1000 -> 2000<br>
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 1.4.2.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+        - The following printer is supported:<br>
+          - TM-T70II<br>
+          - TM-T70IIDT<br>
+          - TM-T88VDT<br>
+    </p>
+    <p class="dicription-mod">
+        - Added openSUSE 12.2 support (32 bit only).<br>
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 1.4.1.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - The following printer is supported:<br>
+        - TM-T20II<br>
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 1.4.0.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - The following printer is supported:<br>
+        - TM-T82II<br>
+    </p>
+    <p class="dicription-mod">
+        - Manuals have been reorganized into driver manual and model manuals.
+    </p>
+    <p class="dicription-mod">
+        - Uninstallation script provided.
+    </p>
+    <p class="dicription-mod">
+        - Comminication module has been changed to PCS(Port Comminication Service).
+    </p>
+    <p class="dicription-mod">
+        - Added the feature to the install.sh:<br>
+          - Auto-detection and uninstallation of incompatible old version<br>
+          - Deletion of the printers that use old version driver
+    </p>
+    <p class="dicription-mod">
+        - Several files have been renamed according to the naming rules.<br>
+    </p>
+    <table class="ver1-4-mod">
+      <tr><td>- Backend</td><td>: epsontm -&gt; tmbaprn</td></tr>
+      <tr><td>- Tools</td><td>: EPPortConfig -&gt; tmportconfig, </td></tr>
+      <tr><td>&emsp;</td><td>&ensp;tmcupsbmptobin -&gt; tmbmptobin</td></tr>
+      <tr><td>- PPD files</td><td>: &quot;epson-&quot; removed</td></tr>
+    </table>
+    <br>
+    <p class="dicription-mod">
+        - Command line port setting tool, tmpcsconfig provided.
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 1.3.2.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - TM-T20 with ethernet connection is supported.<br>
+    </p>
+    <p class="dicription-mod">
+      - The following problem has been solved:<br>
+    </p>
+    <p class="dicription-mod-child">
+          - When the PageRegion is different from the PageSize, the printing may not start.<br>
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 1.2.1.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - The following problems have been solved:<br>
+    </p>
+    <p class="dicription-mod-child">
+        - Memory leak problem found in closing printer with a USB interface.<br>
+    </p>
+    <p class="dicription-mod-child">
+        - Printers may not work when using a TM series thermal printer and 
+          dot printer from a single PC depending on the installation order.<br>
+    </p>
+    <p class="dicription-mod-child">
+        - When you continue printing for a long time with a printer connected with ethernet, it may stop printing.
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 1.2.0.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - the following printer is supported:<br>
+        - BA-T500<br>
+        - TM-T88IV<br>
+    </p>
+    <p class="dicription-mod">
+      - The following problems have been solved:<br>
+    </p>
+    <p class="dicription-mod-child">
+        - When jobs that stored after the printer stops are released, the
+          printing may stop.<br>
+    </p>
+    <p class="dicription-mod-child">
+        - When the cover of the printer connected with serial is opened 
+          and closed during printing for the paper change etc, garbage 
+          characters will be printed.<br>
+    </p>
+    <p class="dicription-mod-child">
+        - Printing may not done correctly after replacing the printer.<br>
+    </p>
+    <p class="dicription-mod-child">
+        - When printing is executed before the power of printer connected
+          with ethernet turns on, it will not start printing after the 
+          power of the printer turns on.<br>
+    </p>
+    <p class="dicription-mod">
+      - The cancel selection item was added to the driver installer.<br>
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 1.1.0.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - How to print text code using the user defined file is described on
+        the printer driver manual.
+    </p>
+    <p class="dicription-mod">
+      - TM-T20 with serial connection is supported.
+    </p>
+    <p class="dicription-mod">
+      - BA-T500II with serial, parallel and ethernet connection is
+        supported.
+    </p>
+    <p class="dicription-mod">
+      - The following problem has been solved:
+    </p>
+    <p class="dicription-mod-child">
+        - When the IP address of the PC is not configured, EPPortConfig
+          will stop operating.
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 1.0.1.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - the following printer is supported:<br>
+        - BA-T500II<br>
+    </p>
+    <br>
+    <p>
+      <b>* Ver. 1.0.0.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - New release.
+    </p>
+    <br>
+    <br>
+    <br>
+
+
+<!--Copyright-->
+  <hr>
+    <p>
+      Copyright (C) Seiko Epson Corporation 2010-2016. All rights reserved.<br>
+    <br>
+      Linux is the registered trademark or trademark of Linus Torvalds in 
+      the U.S. and other countries.<br>
+    <br>
+      CUPS and the CUPS logo are trademarks of Apple Inc. registered in 
+      the U.S. and other countries.<br>
+    <br>
+      "openSUSE" is a registered trademark of SUSE LLC, or its affiliates, 
+      which founded, sponsors, and is designated by, The openSUSE Project. <br>
+    <br>
+      Ubuntu and Canonical are registered trademarks of Canonical Ltd.<br>
+    <br>
+      Red Hat, Red Hat Enterprise Linux are registered trademarks of Red Hat, 
+      Inc. in the U.S. and other countries.<br>
+    <br>
+      Other product names in this document are trademarks or registered 
+      trademarks of respective companies.<br>
+    </p>
+    <br>
+
+
+  </body>
+</html>

@@ -1,0 +1,311 @@
+TM/BAシリーズ プリンタードライバー for Linux
+TM-U120 機種マニュアル
+
+
+目次
+1. はじめに
+2. 概要
+3. 初期設定
+4. 印刷オプションの設定値
+5. 用紙サイズ情報
+6. 制限事項
+
+
+------------------------------------------------------------------------
+1. はじめに
+------------------------------------------------------------------------
+
+本マニュアルでは、「TM/BAシリーズ プリンタードライバー for Linux」で 
+TM-U120 に印刷する際に指定できる印刷条件の詳細を説明しています。
+
+「TM/BAシリーズ プリンタードライバー for Linux」に関する情報は、
+ドライバーマニュアルを参照してください。
+
+
+------------------------------------------------------------------------
+2. 概要
+------------------------------------------------------------------------
+
+  TM-U120は、TM汎用モデルの "TM汎用ドットインパクトレシート" を
+  使用します。
+
+  ・CUPS WebAdminでプリンターを追加する際に選択するモデル名：
+      "EPSON TM Impact Receipt (rastertotmu) (en)"
+
+  ・対応するPPDファイル：
+      tm-impact-receipt-rastertotmu.ppd
+
+  TM-U120 では、以下の印刷オプションの指定が可能です。
+
+  オプション               | CUPS Adminでの表示  | 説明
+---------------------------+---------------------+------------------------------
+  PageSize                 | Media Size          | 用紙サイズ
+  TmxPaperReduction        | Paper Reduction     | 白紙節約
+  TmxPaperSource           | Paper Source        | 用紙カット、及びフィード有無
+  TmxPrinterType           | Printer Type        | プリンタータイプ
+  Resolution               | Resolution          | 出力解像度
+  TmxFeedPitch             | Pitch of Feed       | 紙送りの単位長
+  TmxMaxBandWidth          | Maximum Band Width  | 最大イメージ幅
+  TmxBandLines             | Band Lines          | イメージコマンドのバンドの高さ
+  TmxBidirectionalPrinting | Printing            | 双方向印刷
+  TmxBuzzerControl         | Buzzer              | ブザー有無
+  TmxSoundPattern          | Sound Pattern       | ブザーの種類
+  TmxBuzzerRepeat          | Buzzer Repeat       | ブザーのリピート回数
+  TmxBuzzerSelect          | Buzzer Select       | ブザー選択制御方法
+  TmxDrawerControl         | Cash Drawer         | キャッシュドロアー制御
+  TmxPulseOnTime           | Pulse On Time       | ドロアーキックパルス幅
+
+  印刷オプションの設定値変更はGUIやコマンドラインから指定することが
+  可能です。各印刷オプションの設定値は「4. 印刷オプションの設定値」を
+  参照してください。
+
+  例）lpコマンド用紙サイズをロール紙 (76 x 297 mm) に指定する
+
+       $ lp -o Pagesize=RP76x297
+
+  注）
+    ! 上記以外に、コピー枚数指定などが CUPS独自のオプションとして指定
+      可能です。
+      CUPS独自のオプションは、CUPSのドキュメントを参照してください。
+        http://localhost:631/help/
+
+
+------------------------------------------------------------------------
+3. 初期設定
+------------------------------------------------------------------------
+
+  プリンターオプションの初期設定は以下の通りとします。
+  (*) は、ドライバーの初期値と異なる設定であることを示します。
+  この印がついている設定は、特に注意が必要です。
+
+  CUPS Adminでの表示          | 初期設定
+  ----------------------------+-----------------------------------------
+ [General]                    |
+  Media Size                  | Roll paper 76 x 297 mm
+  Paper Reduction             | Bottom margin
+  Paper Source                | Document [Feed, Cut]
+ [Printer Setting]            |
+  Printer Type                | Impact receipt
+  Resolution                  | 168 x 144 dpi (*)
+  Pitch of Feed               | 144 dpi
+  Maximum Band Width          | 420 (*)
+  Band Lines                  | 8
+  Printing                    | Bidirectional
+ [Buzzer Control]             |
+  Buzzer                      | Not used
+  Sound Pattern               | Internal buzzer
+  Buzzer Repeat               | 1
+  Buzzer Select               | TM-U230
+ [Cash Drawer Control]        |
+  Cash Drawer                 | Don't open drawers
+  Pulse On Time               | 20 msec
+
+
+------------------------------------------------------------------------
+4. 印刷オプションの設定値
+------------------------------------------------------------------------
+
+  各印刷オプションでは、以下の設定を行うことが可能です。
+
+[General]
+
+Media Size: 用紙サイズを選択します
+
+  設定値       | CUPS Adminでの表示         | 説明
+  -------------+----------------------------+-------------------------------
+  RP82.5nx297  | Roll paper 82.5n x 297 mm  | ＜選択禁止＞
+  RP76x297     | Roll paper 76 x 297 mm     | ロール紙 (76 x 297 mm)
+  RP70x297     | Roll paper 70 x 297 mm     | ＜選択禁止＞
+  RP58nx297    | Roll paper 58n x 297 mm    | ＜選択禁止＞
+  RP82.5nx2000 | Roll paper 82.5n x 2000 mm | ＜選択禁止＞
+  RP76x2000    | Roll paper 76 x 2000 mm    | ロール紙 (76 x 2000 mm)
+  RP70x2000    | Roll paper 70 x 2000 mm    | ＜選択禁止＞
+  RP58nx2000   | Roll paper 58n x 2000 mm   | ＜選択禁止＞
+  A4           | A4                         | A4
+  LT           | LT                         | レター
+
+
+Paper Reduction: 白紙の節約有無を選択します
+
+  設定値      | CUPS Adminでの表示         | 説明
+  ------------+----------------------------+--------------------------------
+  Off         | None                       | 白紙節約しない
+  Top         | Top margin                 | 上端の白紙を節約する
+  Bottom      | Bottom margin              | 下端の白紙を節約する
+  Both        | Top & Bottom margins       | 上端・下端両方の白紙を節約する
+
+
+Paper Source: 用紙のカットとフィードの有無を選択します
+
+  設定値         | CUPS Adminでの表示      | 説明
+  ---------------+-------------------------+----------------------------
+  DocFeedCut     | Document [Feed, Cut]    | 紙送り後パーシャルカット
+  DocFeedNoCut   | Document [Feed, NoCut]  | マニュアルカット位置まで紙を送る
+                 |                         | カットしない
+  DocNoFeedCut   | Document [NoFeed, Cut]  | その場でパーシャルカット
+                 |                         | フィードしない
+  DocNoFeedNoCut | Document [NoFeed, NoCut]| 何もしない
+  PageFeedCut    | Page [Feed, Cut]        | ページ毎に紙送り後パーシャルカット
+  PageFeedNoCut  | Page [Feed, NoCut]      | ページ毎にマニュアルカット位置まで紙を送る
+                 |                         | カットしない
+  PageNoFeedCut  | Page [NoFeed, Cut]      | ページ毎にその場でパーシャルカット
+                 |                         | フィードしない
+
+
+[Printer Setting]
+
+Printer Type: プリンタータイプを選択します
+
+  設定値         | CUPS Adminでの表示      | 説明
+  ---------------+-------------------------+-------------------------------
+  ImpactReceipt  | Impact receipt          | ドットインパクトレシートタイプ
+
+
+Resolution: 出力印字解像度を選択します
+
+  設定値         | CUPS Adminでの表示           | 説明
+  ---------------+------------------------------+-------------------------------
+  80x72dpi       | 80 x 72 dpi                  | ＜選択禁止＞
+  84x72dpi       | 84 x 72 dpi                  | 84 x 72 dpiで出力する
+  160x144dpi     | 160 x 144 dpi                | ＜選択禁止＞
+  168x144dpi     | 168 x 144 dpi                | 168 x 144 dpiで出力する
+  144x130dpi     | [90%/160x144dpi]             | ＜選択禁止＞
+  128x115dpi     | [80%/160x144dpi]             | ＜選択禁止＞
+  112x101dpi     | [70%/160x144dpi]             | ＜選択禁止＞
+  96x86dpi       | [60%/160x144dpi]             | ＜選択禁止＞
+  82x73dpi       | [50%/160x144dpi]             | ＜選択禁止＞
+  64x58dpi       | [40%/160x144dpi]             | ＜選択禁止＞
+  53x48dpi       | [33%(A4 to 80mm)/160x144dpi] | ＜選択禁止＞
+  151x130dpi     | [90%/168x144dpi]             | 90% 縮小 (168x144dpi)
+  134x115dpi     | [80%/168x144dpi]             | 80% 縮小 (168x144dpi)
+  118x101dpi     | [70%/168x144dpi]             | 70% 縮小 (168x144dpi)
+  101x86dpi      | [60%/168x144dpi]             | 60% 縮小 (168x144dpi)
+  86x73dpi       | [50%/168x144dpi]             | 50% 縮小 (168x144dpi)
+  67x58dpi       | [40%/168x144dpi]             | 40% 縮小 (168x144dpi)
+  56x48dpi       | [33%(A4 to 80mm)/168x144dpi] | 33% 縮小(A4→80mm) (168x144dpi)
+
+
+Pitch of Feed: 紙送りの単位長を選択します
+
+  設定値         | CUPS Adminでの表示      | 説明
+  ---------------+-------------------------+-------------------------------
+  144.0          | 144 dpi                 | 144 dpi 単位で紙送りする
+
+
+Maximum Band Width: 最大イメージ幅を選択します
+
+  設定値      | CUPS Adminでの表示      | 説明
+  ------------+-------------------------+-------------------------------
+  300         | 300                     | ＜選択禁止＞
+  360         | 360                     | ＜選択禁止＞
+  400         | 400                     | ＜選択禁止＞
+  420         | 420                     | 420 ドット
+  450         | 450                     | ＜選択禁止＞
+
+
+Band Lines: イメージコマンドのバンドの高さを選択します
+
+  設定値         | CUPS Adminでの表示      | 説明
+  ---------------+-------------------------+-------------------------------
+  8              | 8                       | 8 単位でバンド出力する
+
+
+Printing: 双方向印刷の有無を選択します
+
+  設定値         | CUPS Adminでの表示      | 説明
+  ---------------+-------------------------+----------------------------
+  Bidirectional  | Bidirectional           | 双方向印刷を実施する
+  Unidirectional | Unidirectional          | 単方向印刷を実施する
+
+
+[Buzzer Control]
+
+Buzzer: ブザーの有無を選択します
+
+  設定値         | CUPS Adminでの表示      | 説明
+  ---------------+-------------------------+----------------------------
+  Off            | Not used                | ブザーを鳴らさない
+  Before         | Sounds before printing  | ＜選択禁止＞
+  After          | Sounds after printing   | ＜選択禁止＞
+
+
+Sound Pattern: ブザーの種類を選択します
+
+  この設定値は本機種では使用されません。
+
+
+Buzzer Repeat: ブザーのリピート回数を選択します
+
+  この設定値は本機種では使用されません。
+
+
+Buzzer Select: ブザー選択制御方法を選択します
+
+  この設定値は本機種では使用されません。
+
+
+[Cash Drawer Control]
+
+Cash Drawer: キャッシュドロアーの動作を選択します
+
+  設定値          | CUPS Adminでの表示             | 説明
+  ----------------+--------------------------------+--------------------------------
+  None            | Don't open drawers             | ドロアーをオープンしない
+  Drawer#1,Before | Open drawer #1 BEFORE printing | 印字前にドロアー1をオープンする
+  Drawer#1,After  | Open drawer #1 AFTER printing  | 印字後にドロアー1をオープンする
+  Drawer#2,Before | Open drawer #2 BEFORE printing | 印字前にドロアー2をオープンする
+  Drawer#2,After  | Open drawer #2 AFTER printing  | 印字後にドロアー2をオープンする
+
+
+Pulse On Time: ドロアーキックパルス幅を選択します
+
+  設定値         | CUPS Adminでの表示      | 説明
+  ---------------+-------------------------+----------------------------
+  20,10,100      | 20 msec                 | On:20 msec, Off:200 msec
+  40,20,100      | 40 msec                 | On:40 msec, Off:200 msec
+  60,30,120      | 60 msec                 | On:60 msec, Off:240 msec
+  80,40,160      | 80 msec                 | On:80 msec, Off:320 msec
+  100,50,200     | 100 msec                | On:100 msec, Off:400 msec
+  120,60,240     | 120 msec                | On:120 msec, Off:480 msec
+
+
+------------------------------------------------------------------------
+5. 用紙サイズ情報
+------------------------------------------------------------------------
+
+  用紙サイズ名称             | 入力サイズ     | マージン量           | 出力用紙サイズ
+   (CUPS Adminでの表示)      |    横      縦  | 左端 右端 上端 下端  |    横     縦
+                             |            (mm)|                  (mm)|              (mm)
+  ---------------------------+----------------+----------------------+------------------
+  Roll paper 76 x 297 mm     |  63.5   297.0  |  0.0  0.0  0.0  0.0  |  63.5   297.0
+  Roll paper 76 x 2000 mm    |  63.5  2000.0  |  0.0  0.0  0.0  0.0  |  63.5  2000.0
+  A4                         | 202.0   289.0  |  0.0  0.0  0.0  0.0  | 202.0   289.0
+  LT                         | 207.9   271.4  |  0.0  0.0  0.0  0.0  | 207.9   271.4
+
+  本ドライバーでは、CUPSのオプションで任意の用紙サイズを指定して印刷を行う
+  ことができます。
+
+    例) 60 x 85 mm のサイズでfileを印刷する
+
+    $ lp -o media=Custom.60x85mm file
+
+  用紙サイズとして設定できる値は、次の範囲です。
+    用紙幅：    25.4mm から 63.5mm
+    用紙高：    25.4mm から 2000mm まで
+
+
+------------------------------------------------------------------------
+6. 制限事項
+------------------------------------------------------------------------
+
+* 印刷条件は、ページ単位で変更できません。
+
+
+------------------------------------------------------------------------
+Copyright (C) Seiko Epson Corporation 2013-2015. All rights reserved.
+
+Linuxは、Linus Torvalds氏の米国およびその他の国における登録商標または商標です。
+
+CUPSとCUPSロゴは、米国および他の国々で登録されたApple Inc.の商標です。
+
+そのほかの製品名は各社の商標または登録商標です。

@@ -1,0 +1,167 @@
+/*Common*/
+p {
+    width:60%;
+    padding-left:  2em;
+    margin-bottom: 1em
+}
+table { margin-left: 4em }
+th {
+    text-align: left;
+    padding-left:  1em;
+    padding-right: 1em
+}
+td {
+    padding-left:  1em;
+    padding-right: 1em;
+}
+h3 {
+    padding-left:  1em;
+    margin-bottom: 1em
+}
+
+/*Overview*/
+.overview-description {
+    padding-left: 4em;
+    text-indent: -2em
+}
+.all-options {
+    text-align: left;
+    border: 1px #999999 solid
+}
+th.all-options {
+    background-color : #000099;
+    color : #ffffff;
+}
+.example-description {
+    padding-left: 7em;
+    text-indent: -5em
+}
+.note-title {
+    margin-bottom: -1em;
+}
+.note-description {
+    padding-left: 4em;
+    text-indent: -0.5em
+}
+.note-description-config {
+    padding-left: 4em;
+}
+.note-url {
+    margin-top: -1em;
+    padding-left: 5em;
+}
+
+/*Initial settings*/
+.init-settings {
+    text-align: left;
+    border: 1px #999999 solid
+}
+th.init-settings {
+    background-color : #008080;
+    color : #ffffff;
+}
+.menu-indent {
+    text-align: left;
+    border: 1px #999999 solid
+}
+td.menu-indent {
+    text-align: left;
+    padding-left:  2em;
+    border: 1px #999999 solid
+}
+.different-marker {
+    background-color: ffff00;
+}
+
+
+/*Setting values of printing options*/
+.option-title {
+     font-weight: bold
+}
+.printing-options {
+    text-align: left;
+    border: 1px #999999 solid
+}
+th.printing-options {
+    background-color : #808080;
+    color : #ffffff;
+}
+
+/*Paper size information*/
+.pinfo-description {
+    margin-bottom: 0;
+}
+.psize-info {
+    margin-left: 2em;
+    text-align: left;
+    border: 1px #999999 solid;
+    border-spacing: 0;
+}
+th.psize-info {
+    background-color : #000099;
+    color : #ffffff;
+}
+th.psize-info-mm {
+    text-align: right;
+}
+td.psize-info {
+    text-align: left;
+    vertical-align: middle;
+}
+.psize-info-1st-row {
+    border-bottom-style:none;
+}
+.psize-info-2nd-row {
+    border-top-style:none;
+    border-bottom-style:none;
+}
+.psize-info-3rd-row {
+    border-top-style:none;
+}
+.psize-info-left-col {
+    border-right-style:none;
+}
+.psize-info-mid-col {
+    border-right-style:none;
+    border-left-style:none;
+}
+.psize-info-right-col {
+    border-left-style:none;
+}
+
+.psize-list-papername {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    list-style: none;
+}
+.psize-info-list {
+    padding: 0;
+    margin: 0;
+    text-align: right;
+    list-style: none;
+}
+
+/*Printer configuration on using buzzer and/or cash drawer*/
+.configuration-settings {
+    text-align: left;
+    border: 1px #999999 solid
+}
+th.configuration-settings {
+    background-color : #008080;
+    color : #ffffff;
+}
+.configuration-values {
+    text-align: center;
+}
+.configuration-1st-row {
+    border-bottom-style:none;
+}
+.configuration-2nd-row {
+    border-top-style:none;
+    border-bottom-style:none;
+}
+.configuration-3rd-row {
+    border-top-style:none;
+}
+

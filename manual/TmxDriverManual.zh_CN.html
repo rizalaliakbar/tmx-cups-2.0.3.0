@@ -1,0 +1,1788 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Linux操作环境下的TM/BA系列打印机的驱动程序手册</title>
+    <link href="./css/driver-manual.css" rel="stylesheet" type="text/css">
+  </head>
+  <body lang="zh-CN" dir="ltr">
+  <h1>
+    Linux操作环境下的TM/BA系列打印机的驱动程序手册
+  </h1><br>
+  <h2>目录</h2>
+  <ol type="1">
+    <li><a href="#license_agreement">许可协议</a></li>
+    <li><a href="#product_descriptions">产品描述</a></li>
+    <li><a href="#file_configuration">文件构成</a></li>
+    <li><a href="#operational_environment">操作环境</a></li>
+    <li><a href="#how_to_install">如何安装</a></li>
+    <li><a href="#how_to_set">如何设定</a></li>
+    <li><a href="#port_settings">端口设定</a></li>
+    <li><a href="#transmission_function">用于用户定义文件的传送功能</a></li>
+    <li><a href="#multi-tone_conversion_tool">多色调转换工具</a></li>
+    <li><a href="#how_to_uninstall">如何卸载</a></li>
+    <li><a href="#notes_and_restrictions">注意和限制</a></li>
+    <li><a href="#support_information">支持信息</a></li>
+    <li><a href="#modification">基于旧版本的修改</a></li>
+  </ol>
+  <br>
+
+
+<!--License agreement-->
+    <hr>
+      <h2><a name="license_agreement">1. 许可协议</a></h2>
+    <hr>
+    <p>
+      只有在获得付费所有权许可后才可以使用该程序包。<br>
+      有关许可详情，请参阅附带的EULA.zh_CN.txt文件。<br>
+    </p>
+    <p>
+      SEIKO EPSON公司拥有组成该程序包二进制文件的所有源码的版权，只有在获得
+      SEIKO EPSON公司软件许可协议（请参阅EULA.zh_CN.txt）后才可以使用这些二
+      进制文件。<br>
+    </p>
+
+<!--Product descriptions-->
+    <hr>
+      <h2><a name="product_descriptions">2. 产品描述</a></h2>
+    <hr>
+    <p>
+      该软件是利用CUPS，在Linux操作环境下，使用TM/BA系列热敏打印机时的打印机驱动程序。<br>
+    </p>
+    <p class="features-title">
+      特点：
+    </p>
+    <p class="features-list">
+      - TM/BA系列打印机的光栅型打印机驱动程序。<br>
+    </p>
+    <p class="features-list">
+      - 该软件支持热敏打印机，撞击式点阵式打印机。<br>
+    </p>
+    <p class="features-list">
+      - 使用该驱动程序可以立即打印出应用程序所显示的图像、文本和图画<br>
+    </p>
+    <p class="features-list">
+      - 针对纸张剪切时序、钱箱、打印速度、空白线条保存、反白打印等的各种打印机控制。<br>
+    </p>
+    <br>
+
+    <h3>2.1. 支持的型号</h3>
+    <p>
+      该软件支持TM/BA系列打印机。<br>
+      由于会提供用于所有可用型号的PPD文件，因此请检查附带的PPD文件。<br>
+    </p>
+    <p class="model-name">
+      TM BA Thermal：TM/BA通用热敏打印机
+    </p>
+    <p class="printer-name-list">
+        (支持的型号)<br>
+        - TM-H6000II收据<br>
+        - TM-H6000III收据<br>
+        - TM-H6000IV收据<br>
+        - TM-m10<br>
+        - TM-m30<br>
+        - TM-T20<br>
+        - TM-T20II<br>
+        - TM-T70<br>
+        - TM-T70 ANK<br>
+        - TM-T70II<br>
+        - TM-T70II ANK<br>
+        - TM-T82<br>
+        - TM-T82II<br>
+        - TM-T88IV<br>
+        - TM-T88V<br>
+        - TM-T88VI<br>
+        - TM-T90<br>
+        - TM-T90 ANK<br>
+        - TM-T90II<br>
+        - BA-T500II<br>
+    </p>
+    <p class="model-name">
+      TM Impact Receipt：TM通用撞击点阵收据打印机
+    </p>
+    <p class="printer-name-list">
+        (支持的型号)<br>
+        - TM-U120<br>
+        - TM-U120II<br>
+        - TM-U220<br>
+        - TM-U230<br>
+        - TM-U375收据<br>
+        - TM-U675收据<br>
+    </p>
+    <p class="model-name">
+      TM通用撞击式点阵式条单打印机
+    </p>
+    <p class="printer-name-list">
+        (支持的型号)<br>
+        - TM-H6000II条单<br>
+        - TM-H6000III条单<br>
+        - TM-H6000IV条单<br>
+        - TM-U375条单<br>
+        - TM-U675条单<br>
+    </p>
+    <br>
+
+    <h3>2.2. 支持的接口</h3>
+    <p class="simple-list">
+      USB<br>
+      串行<br>
+      并行<br>
+      以太网<br>
+    </p>
+    <br>
+    <br>
+
+<!--File configuration-->
+    <hr>
+      <h2><a name="file_configuration">3. 文件构成</a></h2>
+    <hr>
+    <p>
+      程序包(tmx-cups-2.0.3.0.tar.gz)的构成如下：<br>
+    </p>
+    <table class="file-config">
+      <tr><td class="file-config directory-name" colspan="2">tmx-cups</td><td class="directory-name" colspan="3">&larr;顶级目录</td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">EULA.en.txt  &ensp;&emsp;&emsp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;用户许可文件（英文）</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">EULA.ja.txt  &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;用户许可文件（日文）</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">EULA.zh_CN.txt   &emsp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;用户许可文件（中文）</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">install.sh  &emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;安装脚本（英文）</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">install-sc.sh  &ensp;&emsp;&emsp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;安装脚本（中文）</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config" colspan="4">uninstall.sh   &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;<span class="file-config-discription">&larr;卸载脚本（英文）</span></td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config directory-name" colspan="4">manual &emsp;&emsp;&lt;&ndash; 手册存储目录</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">index.html</td><td class="file-config-discription">&larr;索引</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TmxDriverManual.en.html</td><td class="file-config-discription">&larr;驱动程序手册（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TmxDriverManual.ja.html</td><td class="file-config-discription">&larr;驱动程序手册（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TmxDriverManual.zh_CN.html</td><td class="file-config-discription">&larr;驱动程序手册（中文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-Thermal_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM/BA通用热敏打印机（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-Impact_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM通用撞击点阵收据打印机（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-Slip_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM通用条单打印机（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000II_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-H6000II收据（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000II_Slip_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-H6000II条单（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000III_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-H6000III收据（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000III_Slip_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-H6000III条单（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000IV_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-H6000IV收据（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-H6000IV_Slip_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-H6000IV条单（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-m10_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-m10（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-m30_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-m30（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T20_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T20（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T20II_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T20II（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T70_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T70（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T70ANK_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T70 ANK（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T70II_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T70II（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T70IIANK_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T70II ANK（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T82_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T82（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T82_Manual.zh_CN.html</td><td class="file-config-discription">&larr;型号手册TM-T82（中文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T82II_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T82II（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T82II_Manual.zh_CN.html</td><td class="file-config-discription">&larr;型号手册TM-T82II（中文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T88IV_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T88IV（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T88V_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T88V（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T88VI_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T88VI（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T90_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T90（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T90ANK_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T90 ANK（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-T90II_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-T90II（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">BA-T500II_Manual.en.html</td><td class="file-config-discription">&larr;BA-T500II（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U120_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-U120（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U120II_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-U120II（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U220_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-U220（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U230_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-U230（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U375_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-U375收据（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U375_Slip_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-U375条单（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U675_Receipt_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-U675收据（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">TM-U675_Slip_Manual.en.html</td><td class="file-config-discription">&larr;型号手册TM-U675条单（英文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config directory-name" colspan="3">css  &emsp;&emsp;&lt;&ndash;css文件存储目录</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" >driver-manual.css</td><td class="file-config-discription">&larr;用驱动程序手册CSS文件</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child">printer-manual.css</td><td class="file-config-discription">&larr;用型号手册CSS文件</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config directory-name" colspan="3">img  &emsp;&emsp;&lt;&ndash;图像文件存储目录</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-1.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-2.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-3.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-4.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-5.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-6.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-7.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-8.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child" colspan="2">6-9.png</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config directory-name" colspan="3">text  &emsp;&emsp;&lt;&ndash;手册(文本)存储目录</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-Thermal_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM/BA通用热敏打印机（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-Impact_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM通用撞击点阵收据打印机（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM通用条单打印机（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000II_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-H6000II收据（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000II_Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-H6000II条单（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000III_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-H6000III收据（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000III_Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-H6000III条单（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000IV_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-H6000IV收据（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-H6000IV_Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-H6000IV条单（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-m10_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-m10（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-m30_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-m30（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T20_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T20（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T20II_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T20II（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T70_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T70（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T70ANK_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T70 ANK（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T70II_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T70II（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T70IIANK_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T70II ANK（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T88IV_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T88IV（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T88V_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T88V（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T88VI_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T88VI（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T90_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T90（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T90ANK_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T90 ANK（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-T90II_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-T90II（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">BA-T500II_Manual.ja.txt</td><td class="file-config-discription">&larr;BA-T500II（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U120_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-U120（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U120II_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-U120II（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U220_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-U220（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U230_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-U230（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U375_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-U375收据（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U375_Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-U375条单（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child">TM-U675_Receipt_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-U675收据（日文）</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">&emsp;</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child">TM-U675_Slip_Manual.ja.txt</td><td class="file-config-discription">&larr;型号手册TM-U675条单（日文）</td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config directory-name" colspan="4">filter  &emsp;&emsp;&lt;&ndash; 过滤包存储目录</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups_1.2.2-1_i386.deb</td><td class="file-config-discription">&larr;tmx-cups 过滤 deb 程序包(32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups_1.2.2-1_amd64.deb</td><td class="file-config-discription">&larr;tmx-cups 过滤 deb 程序包(64bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-1.2.2-1.i586.rpm</td><td class="file-config-discription">&larr;tmx-cups 过滤 rpm 程序包(32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-1.2.2-1.x86_64.rpm</td><td class="file-config-discription">&larr;tmx-cups 过滤 rpm 程序包(64bit)</td></tr>
+      <tr><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config directory-name" colspan="4">backendbackend  &emsp;&emsp;&lt;&ndash; 后端和通信模块存储目录</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">pcs-3.17.0.0-1.i386.deb</td><td class="file-config-discription">&larr;通信模块 deb 程序包(32bit)(32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">pcs-3.17.0.0-1.amd64.deb</td><td class="file-config-discription">&larr;通信模块 deb 程序包(64bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">pcs-3.17.0.0-1.i586.rpm</td><td class="file-config-discription">&larr;通信模块 rpm 程序包(32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">pcs-3.17.0.0-1.x86_64.rpm</td><td class="file-config-discription">&larr;通信模块 rpm 程序包(64bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmbaprn.RHEL.pp</td><td class="file-config-discription">&larr;SELinux策略模块 (为RHEL)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-backend-1.2.4.0-1.i386.deb</td><td class="file-config-discription">&larr;tmx-cups 后端 deb 程序包(32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-backend-1.2.4.0-1.amd64.deb</td><td class="file-config-discription">&larr;tmx-cups 后端 deb 程序包(64bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-backend-1.2.4.0-1.i586.rpm</td><td class="file-config-discription">&larr;tmx-cups 后端 rpm 程序包(32bit)</td></tr>
+      <tr><td class="file-config-child">|</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child" colspan="2">tmx-cups-backend-1.2.4.0-1.x86_64.rpm</td><td class="file-config-discription">&larr;tmx-cups 后端 rpm 程序包(64bit)</td></tr>
+      <tr><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config directory-name" colspan="4">ppd  &emsp;&emsp;&lt;&ndash; PPD文件存储目录</td></tr>
+      <tr><td>&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tm-ba-thermal-rastertotmt.ppd.gz</td><td class="file-config-discription">&larr;TM/BA通用热敏打印机用 PPD 文件</td></tr>
+      <tr><td>&emsp;</td><td class="file-config-child">|&ndash; &ndash;</td><td class="file-config-child" colspan="2">tm-impact-receipt-rastertotmu.ppd.gz</td><td class="file-config-discription">&larr;TM通用撞击点阵收据打印机用 PPD 文件</td></tr>
+      <tr><td>&emsp;</td><td class="file-config-child">`&ndash; &ndash;</td><td class="file-config-child" colspan="2">tm-slip-rastertotmu.ppd.gz</td><td class="file-config-discription">&larr;TM通用条单打印机用 PPD 文件</td></tr>
+    </table><br>
+    <p>
+      用于openSUSE的rpm程序包和用于Ubuntu的deb程序包可用于各个程序包。此外，
+      这些程序包中还拥有各种构造中用于Intel x86（32位）的程序包和用于Intel
+      x64（64位）的程序包。<br>
+    </p><br>
+    <br>
+
+
+<!--Operational environment-->
+    <hr>
+      <h2><a name="operational_environment">4. 操作环境</a></h2>
+    <hr>
+    <p>
+      该软件支持以下环境。<br>
+      不保证非支持环境下的操作性能。<br>
+    </p>
+    <h3>* 操作系统</h3>
+    <p class="simple-list">
+      - openSUSE 11.1<br>
+      - openSUSE 12.2<br>
+      - openSUSE 13.1<br>
+      - Red Hat Enterprise Linux 6.4<br>
+      - Red Hat Enterprise Linux 6.5<br>
+      - Ubuntu 9.04<br>
+      - Ubuntu 12.04<br>
+      - Ubuntu 14.04<br>
+    </p>
+    <h3>* 硬件：</h3>
+    <p class="simple-list">
+      - Intel x86（32位）架构。<br>
+      - Intel x86_64（64位）架构。<br>
+    </p>
+    <h3>* 相关软件</h3>
+    <p class="simple-list">
+      - CUPS Ver.1.2或更高版本<br>
+      <a class="indnt-url" href="http://www.cups.org/" target="_blank">http://www.cups.org/</a>
+    </p>
+    <br>
+    <p class="simple-list">
+      - libusb-1.0.0或更高版本<br>
+      <A class="indnt-url" href="http://www.libusb.org/" target="_blank">http://www.libusb.org/</A>
+    </p>
+    <h3>* 该程序适用于以下环境。</h3>
+    <p class="dicription-env">
+      - openSUSE 11.1 环境<br>
+         - libusb-1_0-0-1.0.2-2.2<br>
+         - cups-1.3.9-7.1<br>
+    </p>
+    <p class="dicription-env">
+      - openSUSE 12.2 环境<br>
+         - libusb-1_0-0-1.0.9-3.1.2<br>
+         - cups-1.5.3-2.1.5<br>
+    </p>
+    <p class="dicription-env">
+      - openSUSE 13.1 环境<br>
+         - libusb-1_0-0-1.0.9-8.1.2<br>
+         - cups-1.5.4-12.17.1<br>
+    </p>
+    <p class="dicription-env">
+      - Red Hat Enterprise Linux(RHEL) 6.4 环境<br>
+         - libusb1-1.0.9-0.6.rc1.el6<br>
+         - cups-1.4.2-48.el6_3.3<br>
+    </p>
+    <p class="dicription-env">
+      - Red Hat Enterprise Linux(RHEL) 6.5 环境<br>
+         - libusb1-1.0.9-0.6.rc1.el6<br>
+         - cups-1.4.2-52.el6_5.2<br>
+    </p>
+    <p class="dicription-env">
+      - Ubuntu 9.04 环境<br>
+         - libusb-1.0-0-2:1.0.0-1<br>
+         - cups-1.3.9-17ubuntu3.4<br>
+    </p>
+    <p class="dicription-env">
+      - Ubuntu 12.04 环境<br>
+         - libusb-1.0-0-2:1.0.9~rc3-2ubuntu1<br>
+         - cups-1.5.3-0ubuntu8.6<br>
+    </p>
+    <p class="dicription-env">
+      - Ubuntu 14.04 环境<br>
+         - libusb-1.0-0-2:1.0.17-1ubuntu2<br>
+         - cups-1.7.2-0ubuntu1.5<br>
+    </p>
+    <h3>* 您可以针对以下环境检查上述程序包的信息。</h3>
+    <p class="dicription-env">
+      - openSUSE 11.1/12.2/13.1 环境
+        如何检查libusb-1_0-0<br>
+    </p>
+    <p class="exam-command">
+      1.检查安装程序包名称。<br>
+      $ rpm -qa | grep libusb-1_0-0<br>
+      libusb-1_0-0-1.0.2-2.2<span class="pad10">&larr;显示的详细内容</span><br>
+    </p>
+    <br>
+    <p class="exam-command">
+      2.检查通过上述命令显示的程序包详细内容。<br>
+      $ rpm -qi libusb-1_0-0-1.0.2-2.2
+    </p>
+    <p class="dicription-env">
+      <br>
+        如何检查cups<br>
+    </p>
+    <p class="exam-command">
+      1.检查安装程序包名称。<br>
+      $ rpm -qa | grep cups<br>
+      &middot;&middot;&middot;<br>
+      cups-1.3.9-7.1<span class="pad10">&larr;显示的详细内容</span><br>
+      &middot;&middot;&middot;<br>
+    </p>
+    <p class="exam-command">
+      2.检查通过上述命令显示的程序包详细内容。<br>
+      $ rpm -qi cups-1.3.9-7.1<br>
+    </p>
+    <br>
+    <p class="dicription-env">
+      - Red Hat Enterprise Linux(RHEL) 6.4/6.5 环境<br>
+        如何检查libusb<br>
+    </p>
+    <p class="exam-command">
+      1.检查安装程序包名称。<br>
+      $ rpm -qa | grep libusb1<br>
+      libusb1-1.0.9-0.6.rc1.el6.x86_64<span class="pad10">&larr;显示的详细内容</span><br>
+    </p>
+    <br>
+    <p class="exam-command">
+      2.检查通过上述命令显示的程序包详细内容。<br>
+      $ rpm -qi libusb1-1.0.9-0.6.rc1.el6.x86_64
+    </p>
+    <p class="dicription-env">
+      <br>
+        如何检查cups<br>
+    </p>
+    <p class="exam-command">
+      1.检查安装程序包名称。<br>
+      $ rpm -qa | grep cups<br>
+      &middot;&middot;&middot;<br>
+      cups-1.4.2-48.el6_3.3.x86_64<span class="pad10">&larr;显示的详细内容</span><br>
+      &middot;&middot;&middot;<br>
+    </p>
+    <p class="exam-command">
+      2.检查通过上述命令显示的程序包详细内容。<br>
+      $ rpm -qi cups-1.4.2-48.el6_3.3.x86_64<br>
+    </p>
+    <br>
+    <p class="dicription-env">
+      - Ubuntu 9.04/12.04/14.04 环境<br>
+        如何检查libusb-1.0-0<br>
+    </p>
+    <p class="exam-command">
+      $ dpkg-query -l libusb-1.0-0<br>
+    </p>
+    <p class="dicription-env">
+      <br>
+        如何检查cups<br>
+    </p>
+    <p class="exam-command">
+      $ dpkg-query -l cups<br>
+    </p>
+    <br>
+
+
+<!--How to Install-->
+    <hr>
+      <h2><a name="how_to_install">5. 如何安装</a></h2>
+    <hr>
+    <h3>5.1 安装您的配置环境中所需的程序包。</h3>
+    <p>
+      * 获取所需程序包之前，请检查是否已连接至互联网。
+    </p>
+    <p class="dicription-inst">
+      - oopenSUSE 11.1环境<br>
+        1. 下载libusb-1_0-0程序包。<br>
+    </p>
+    <p class="dicription-inst-child">
+         您可以在本手册编写期间（2015年5月）从以下站点下载用于openSUSE
+         的程序包。<br>
+      <br>
+      x86（32位）架构<br>
+      <a class="indnt-url" href="http://download.opensuse.org/distribution/11.4/repo/oss/suse/i586/libusb-1_0-0-1.0.8-4.1.i586.rpm" target="_blank">http://download.opensuse.org/distribution/11.4/repo/oss/suse/i586/libusb-1_0-0-1.0.8-4.1.i586.rpm</a><br>
+      <br>
+      x86_64（64位）架构<br>
+      <a class="indnt-url" href="http://download.opensuse.org/distribution/11.4/repo/oss/suse/x86_64/libusb-1_0-0-1.0.8-4.1.x86_64.rpm" target="_blank">http://download.opensuse.org/distribution/11.4/repo/oss/suse/x86_64/libusb-1_0-0-1.0.8-4.1.x86_64.rpm</a><br>
+    </p>
+    <p class="dicription-inst">
+      <br>
+      2. 安装下载的程序包。<br>
+    </p>
+    <p class="dicription-inst-child">
+        示例）x86（32位）架构<br>
+    </p>
+    <p class="exam-command-install">
+        # rpm -i libusb-1_0-0-1.0.8-4.1.i586.rpm<br>
+    </p>
+    <p class="note-title">
+        注）
+    </p>
+    <p class="note-description">
+         ! 您需要具有root用户权限，方可执行安装。<br>
+    </p>
+    <p class="dicription-inst">
+      - openSUSE 12.2/13.1环境
+      与libusb-1_0-0安装从一开始，和你可以继续使用它。
+    </p>
+    <p class="dicription-inst">
+      - Red Hat Enterprise Linux(RHEL) 6.4/6.5 环境<br>
+      与libusb1-1.0安装从一开始，和你可以继续使用它。
+    </p>
+    <p class="dicription-inst">
+      - Ubuntu 9.04环境<br>
+      1. 使用以下命令安装libusb-1.0-0。
+    </p>
+    <p class="dicription-inst-child">
+        # apt-get install libusb-1.0-0=2:1.0.0-1<br>
+    </p>
+    <p class="dicription-inst">
+      <br>
+        2. 使用以下命令更新CUPS程序包。<br>
+    </p>
+    <p class="dicription-inst-child">
+        # apt-get install cups<br>
+    </p>
+    <p class="note-title">
+        注）<br>
+    </p>
+    <p class="note-description">
+      ! 您需要具有root用户权限，方可执行安装。
+    </p>
+    <p class="note-description">
+        ! 如果通过上述步骤未能安装所需的程序包，请运行以下命令重新安装。<br>
+        # apt-get update<br>
+    </p>
+    <p class="dicription-inst">
+      - Ubuntu 12.04/14.04环境<br>
+        与libusb-1.0-0安装从一开始，和你可以继续使用它。
+    </p>
+    <h3>5.2. 安装驱动程序</h3>
+    <br>
+    <p class="dicription-inst-driv">
+      * 在简体中文版操作系统PC上运行install-sc.sh文件。<br>
+        <br>
+        您可以从文件管理器等中双击安装脚本文件图标，或在命令提示符窗口中
+        执行以下命令来运行文件：<br>
+        <br>
+        # ./install-sc.sh<br>
+        <br>
+        在其他语言版操作系统PC上运行install.sh文件。<br>
+        <br>
+        在命令提示符窗口执行以下命令来运行文件：<br>
+        <br>
+        # ./install.sh<br>
+    </p>
+    <br>
+    <p class="dicription-inst-driv">
+        注）<br>
+    </p>
+    <p class="dicription-inst-driv-child">
+      ! 您需要具有root用户权限方可执行安装。<br>
+        如果您没有root用户权限，install-sc.sh或install.sh将执行sudo命令。<br>
+        输入密码。<br>
+    </p>
+    <p class="dicription-inst-driv-child">
+      ! 安装驱动程序前，请关闭打印机。<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * 如果已经安装了以前的版本，则必须先卸载以前的版本。<br>
+        当检测到以前的版本时，询问是否卸载以前版本的详细信息将会显示。<br>
+        如果是没有问题，请输入“y”，然后按回车键。<br>
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+      示例）显示类似以下内容的消息。<br>
+      TM/BA系列打印机的驱动程序的不兼容的版本已被发现。<br>
+      在安装新版本之前，必须先卸载不兼容的版本:"tmt-cups-1.3.x.x"。<br>
+      <span class="pad05">被卸载的包装:</span><br>
+    </p>
+    <p class="package-list">
+        tmt-cups-1.0.3-1<br>
+        epson-cups-escpos-1.0.12.0-1<br>
+        ep-escpos-2.3.2.90-1<br>
+        ep-core-2.3.2.90-1<br>
+        ep-client-2.3.2.90-1<br>
+    </p>
+    <p class="dicription-inst-driv-child">
+      <br>
+      卸载旧的TM/BA系列打印机驱动程序: tmt-cups-1.3.x.x  [y/n]? y<br>
+      ...（略）<br>
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+      - 所有卸载完成后，将显示消息，希望删除的正在使用的打印机驱动程序已卸载。<br>
+        如果没有问题，请输入“y”，然后按回车键。<br>
+        （如果你不删除打印机，打印机会保持处于错误状态。）<br>
+        （如果没有符合的打印机，确认消息被不表示。）<br>
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+      示例）显示类似以下内容的消息。<br>
+      删除使用已卸载的驱动程序的打印机 [y/n]? y<br>
+      删除打印机: TM-T88IV<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * 动作环境识别以后,显示安装的程序包和发行版的信息。<br>
+        如果该信息正确，请输入“y”，然后按回车键。<br>
+        <br>
+    </p>
+    <p class="dicription-inst-driv-child">
+        示例）openSUSE 13.1 x86（32位）架构<br>
+        安装 tmx-cups-2.0.3.0 到 openSUSE 13.1 x86(32bit) [y/n]?<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * 如果所显示的版本不是您要安装的，请输入“n”，然后按回车键。<br>
+        此时会显示版本选择画面。输入选择的数字，然后按回车键。<br>
+        输入“0”并按回车键则取消安装。<br>
+        <br>
+        请选择您的发行版。<br>
+        1.RHEL 6.4 x86(32bit)<br>
+        2.RHEL 6.4 x86_64(64bit)<br>
+        3.RHEL 6.5 x86(32bit)<br>
+        4.RHEL 6.5 x86_64(64bit)<br>
+        5.Ubuntu 12.04 x86(32bit)<br>
+        6.Ubuntu 12.04 x86_64(64bit)<br>
+        7.Ubuntu 14.04 x86(32bit)<br>
+        8.Ubuntu 14.04 x86_64(64bit)<br>
+        9.Ubuntu 9.04 x86(32bit)<br>
+        10.Ubuntu 9.04 x86_64(64bit)<br>
+        11.openSUSE 11.1 x86(32bit)<br>
+        12.openSUSE 11.1 x86_64(64bit)<br>
+        13.openSUSE 12.2 x86(32bit)<br>
+        14.openSUSE 12.2 x86_64(64bit)<br>
+        15.openSUSE 13.1 x86(32bit)<br>
+        16.openSUSE 13.1 x86_64(64bit)<br>
+        选择编号[0(取消)/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16]?<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * 选择版本后将会启动所选版本程序的安装
+    </p>
+    <br>
+    <br>
+
+
+<!--How to Set-->
+    <hr>
+      <h2><a name="how_to_set">6. 如何设定</a></h2>
+    <hr>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * 设备端口设定<br>
+      <br>
+      不使用USB端口时，您需要设定一个端口。<br>
+      有关详情，请参阅 "7. 端口设定"。<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv">
+      * 将打印机登录至CUPS<br>
+      <br>
+      将打印机登录至CUPS之前请开启打印机。<br>
+      <br>
+      在网页浏览器中打开CUPS WebAdmin <a href="http://localhost:631/" target="_blank">&lt; http://localhost:631/ &gt;</a>将打印机
+      登录至CUPS。<br>
+      <br>
+      请使用以下URL参阅CUPS信息。<br>
+      <a class="indnt-url" href="http://localhost:631/help/" target="_blank">&lt; http://localhost:631/help/ &gt;</a><br>
+      <a class="indnt-url" href="http://www.cups.org/" target="_blank">&lt; http://www.cups.org/ &gt;</a><br>
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+      - 选择[Administration]选项卡，然后单击“Add Printer”。<br>
+      <br>
+      <img src="./img/6-1.png" width="80%"></img>
+      <br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv-child">
+      - 在打印机设备选择画面中选择“EPSON TM/BA Printer”，然后点击“Continue”。<br>
+      <br>
+      示例）
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      - 使用USB TM-T88V时<br>
+        "EPSON TM/BA Printer (USB(ESDPRT001) TM-T88V)"<br>
+    </p>
+    <p class="dicription-inst-selectmenu">
+      - 使用并行端口时<br>
+        "EPSON TM/BA Printer (Parallel(/dev/parport0) TM-T88V)"
+    </p>
+    <p class="dicription-inst-selectmenu">
+      - 使用串行端口时<br>
+        "EPSON TM/BA Printer (Serial(/dev/ttyS0) TM-T88V)"<br>
+    </p>
+    <p class="dicription-inst-selectmenu">
+      - 使用以太网端口时<br>
+        "EPSON TM/BA Printer (Ethernet(192.168.0.10) TM-T88V)"<br>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-3.png" width="80%"></img>
+      <br>
+      <br>
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+      - 屏幕“Add New Printer”显示后，输入 Name, Location, Description，然后点击“Continue”。
+      <br>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-4.png" width="80%"></img>
+    </p>
+    <br>
+    <p class="dicription-inst-driv-child">
+    - 在"Make/Manufacturer"选择画面中选择"Epson"，请单击“Continue”。<br>
+      在"Model/Drive"选择画面中选择适当的TM通用型号，请单击“Add Printer”。<br>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      - TM/BA通用热敏打印机（TM-T88V等）<br>
+        "EPSON TM BA Thermal (rastertotmt) (en,en,zh_CN)"<br>
+    </p>
+    <p class="dicription-inst-selectmenu">
+      - TM通用撞击点阵收据打印机（TM-U220等）<br>
+        "EPSON TM Impact Receipt (rastertotmu) (en)"<br>
+    </p>
+    <p class="dicription-inst-selectmenu">
+      - TM通用条单打印机（TM-H6000IV条单等）<br>
+        "EPSON TM Slip (rastertotmu) (en)"<br>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-5.png" width="80%"></img>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-6.png" width="80%"></img>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-inst-driv-child">
+      - 屏幕“Set Printer Options”显示后，确认,设定打印机选项。<br>
+        有关详细信息，请参阅各机型对应的手册。<br>
+        <br>
+        示例）用于TM-T88V<br>
+        &emsp;&emsp;TM-T88V_Manual.en.html<br>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-7.png" width="80%"></img>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-8.png" width="80%"></img>
+    </p>
+    <br>
+    <p class="dicription-inst-selectmenu">
+      <img src="./img/6-9.png" width="80%"></img>
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-inst-driv-child">
+      注）
+    </p>
+    <p class="dicription-inst-driv-child">
+      ! 如果该版本所包含的打印机设定工具显示了自动识别画面，请将其取消。
+    </p>
+    <br>
+    <br>
+
+
+<!--Port settings-->
+    <hr>
+    <h2><a name="port_settings">7. 端口设定</a></h2>
+    <hr>
+    <p>
+      如果使用了USB以外的端口，则需要进行端口设定。<br>
+      请根据情况运行安装程序工具。<br>
+    </p>
+    <table>
+      <tr><td>- /usr/sbin/tmportconfig</td><td> 菜单驱动的设置工具端口</td></tr>
+      <tr><td>- /usr/sbin/tmpcsconfig</td><td> 命令格式的设置工具端口</td></tr>
+    </table>
+    <p>
+      若使用USB，则在联机状态下连接设备时PnP功能将会自动添加端口。
+    </p>
+    <p>
+      一个定制的ID（-secc0000等）增加了定制版本的驱动程序在端口设置工具名称。
+      然而，对于简化，在本手册的其余部分或模型手册中省略了自定义标识。
+    </p>
+    <br>
+    <p class="dicription-port-set">
+      注）<br>
+        ! 您需要具有root用户权限，方可进行端口设定。<br>
+        ! 设定端口期间，请关闭打印机。<br>
+    </p>
+    <h3>7.1. 添加端口时</h3>
+    <h4>7.1.1. 添加端口：菜单驱动方式设置</h4>
+    <br>
+    <p class="dicription-gt-port-set">
+      请运行tmportconfig命令。<br>
+        # tmportconfig<br>
+    </p>
+    <br>
+    <p>
+      &gt; TM/BA Printer Port Configuration Tool<br>
+      &gt; <br>
+      &gt; Please choose one of the following options:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      输入“Add new port”的数值，按回车键。
+    </p>
+    <br>
+    <p>
+      &gt; Add New Port<br>
+      &gt; <br>
+      &gt; Please choose one of the following device types:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      输入“EPSON TM/BA Printer”等值，
+      然后按回车键。
+    </p>
+    <br>
+    <p>
+      &gt; Communications Type<br>
+      &gt; <br>
+      &gt; Please choose one of the following port types:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      输入符合端口的接口类型的值，
+      然后按回车键。
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Serial Port</B>
+    </p>
+    <p>
+      &gt; Serial Port Name<br>
+      &gt; <br>
+      &gt; Please choose one of the following port names:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      选择要使用的串行端口。
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Baud Rate<br>
+      从1200、2400、4800、9600、19200、38400、57600、115200 bps中选择一个值。
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Parity<br>
+      从None、Odd、Even中选择一个值。
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Stop Bits<br>
+      从1 bit、2 or more bits中选择一个值。
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Flow Control<br>
+      选择Hardware或Xon/Xoff
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Parallel Port</B>
+    </p>
+    <p>
+      &gt; Parallel Port Name<br>
+      &gt; <br>
+      &gt; Please choose one of the available parallel ports:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      选择要使用的并行端口。
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Ethernet Port</B>
+    </p>
+    <p>
+      &gt; Ethernet Port Name<br>
+      &gt; <br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; Please input an IP address: (ex 192.168.0.10)<br>
+      输入IP地址，然后按回车键。
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Do you want to save the changes you have made (Y or N)<br>
+      输入Y，然后按回车键。
+    </p>
+    <br>
+
+    <br>
+    <h4>7.1.2. 添加端口：命令格式方式设置</h4>
+    <br>
+    <p class="dicription-port-set">
+      选项​​“add”后，请执行tmpcsconfig命令。
+    </p>
+    <br>
+    <p class="dicription-gt-port-set">
+      示例）<br>
+      # tmpcsconfig add serial /dev/ttyS0
+    </p>
+    <br>
+    <br>
+    <table class="tmpcsconfig">
+      <tr><td colspan="3">&gt; New port added successfully:</td></tr>
+      <tr><td colspan="2">&gt; PortName</td><td>: ESDPRT002</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PortType</td><td>: Serial(1)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Name</td><td>: /dev/ttyS0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">DeviceType</td><td>: PCS_PARAM_DEVICE_TYPE_TM(0)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig" colspan="2">Initializing with default setting for Serial...</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig" colspan="2">Initial setting done successfully.</td></tr>
+      <tr><td colspan="3">&gt; To check the port settings, please use enum ESDPRT002 option.</td></tr>
+    </table>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig add parallel /dev/parport0<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig add ethernet 192.168.192.100<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+
+    <br>
+    <h3>7.2. 检查端口设定时</h3>
+    <p>
+      只能使用tmpcsconfig命令。<br>
+      （请注意，使用tmportconfig命令,你无法看到端口配置的详细信息。）<br>
+    </p>
+    <h4>7.2.1. 列举所有被配置为PCS(Port Communication Service)的端口</h4>
+    <br>
+    <p class="dicription-port-set">
+      选项​​“enum”后，请执行tmpcsconfig命令。<br><br>
+      示例）<br>
+      # tmpcsconfig enum<br>
+      <br>
+      &gt; PortName  :  PortType,  Port,  ModelName<br>
+      &gt; -----------------------------------------------------------------------------------------------------------------<br>
+      &gt; ESDPRT001 :  PortType=USB,  Port=//?/USB#VID_04b8&amp;PID_0202#?,  ModelName=TM-T88V<br>
+      &gt; ESDPRT002 :  PortType=Serial,  Port=/dev/ttyS0,  ModelName=n/a<br>
+      &gt; ESDPRT003 :  PortType=Parallel,  Port=/dev/parport0,  ModelName=n/a<br>
+      &gt; ESDPRT004 :  PortType=Ethernet,  Port=192.168.192.100,  ModelName=n/a<br>
+    </p>
+    <br>
+    <h4>7.2.2. 检查各端口设定</h4>
+    <p>
+      选项​​“enum &lt;端口名&gt;”后，请执行tmpcsconfig命令。<br>
+      如果命令执行前打开打印机的电源，能够取得型号等基本信息。<br><br>
+    </p>
+    <br>
+    <p class="dicription-port-set">
+      示例）<br>
+      # tmpcsconfig enum ESDPRT002<br>
+    </p>
+    <table class="tmpcsconfig">
+      <tr><td colspan="2">&gt; PortName</td><td>: ESDPRT002</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PortType</td><td>: Serial(1)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Name</td><td>: /dev/ttyS0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">ModelName</td><td>: TM-T88V</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">DeviceType</td><td>: PCS_PARAM_DEVICE_TYPE_TM</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">DeviceID</td><td>: 32(0x20)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">FirmwareVer</td><td>: 30.23 ESC/POS</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Baudrate</td><td>: 19200</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Databit</td><td>: 8</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Parity</td><td>: None</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Stopbits</td><td>: 1</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Handshake</td><td>: AUTO</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">BuzzerSelect</td><td>: 0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Pulse1BeepTimes</td><td>: 0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Pulse2BeepTimes</td><td>: 1</td></tr>
+    </table><br>
+    <p class="dicription-port-set">
+      <br>
+      # tmpcsconfig e 4<br>
+    </p>
+    <table class="tmpcsconfig">
+      <tr><td colspan="2">&gt; PortName</td><td>: ESDPRT004</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PortType</td><td>: Ethernet(4)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Name</td><td>: 192.168.192.100</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">ModelName</td><td>: TM-T88V</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">DeviceType</td><td>: PCS_PARAM_DEVICE_TYPE_TM</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">DeviceID</td><td>: 32(0x20)</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">FirmwareVer</td><td>: 30.23 ESC/POS</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">MonitorInterval</td><td>: 3000</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">MonitorTimeout</td><td>: 500</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">WiredPowerOffCount</td><td>: 1</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">WiredPowerOfflineCount</td><td>: 0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">WirelessPowerOffCount</td><td>: 3</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">WirelessPowerOfflineCount</td><td>: 1</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PowerOffMonitorTimeout</td><td>: 1000</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PowerOffMonitorCount</td><td>: 3</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">PowerOffMonitorInterval</td><td>: 1000</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">BuzzerSelect</td><td>: 0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Pulse1BeepTimes</td><td>: 0</td></tr>
+      <tr><td>&gt;</td><td class="tmpcsconfig">Pulse2BeepTimes</td><td>: 1</td></tr>
+    </table>
+    <br>
+
+    <h3>7.3. 更改端口设定时</h3>
+    <h4>7.3.1. 更改端口设定：菜单驱动方式设置</h4>
+    <br>
+    <p class="dicription-gt-port-set">
+      请运行tmportconfig命令<br>
+        # tmportconfig<br>
+    </p>
+    <br>
+    <p>
+      &gt; TM/BA Printer Port Configuration Tool<br>
+      &gt; <br>
+      &gt; Please choose one of the following options:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      输入“Configure existing port”的数值，按回车键。
+    </p>
+    <br>
+    <p>
+      &gt; Configure Existing Port<br>
+      &gt; <br>
+      &gt; Please choose one of the existing ports:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      输入要更改的端口设定的数值，然后按回车键。<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Serial Port</B>
+    </p>
+    <p>
+      &gt; Serial Port Name<br>
+      &gt; <br>
+      &gt; Please choose one of the following port names:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      选择要使用的串行端口。<br>
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Baud Rate<br>
+      从1200、2400、4800、9600、19200、38400、57600、115200 bps中选择一个值。
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Parity<br>
+      从None、Odd、Even中选择一个值。
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Stop Bits<br>
+      从1 bit、2 or more bits中选择一个值。
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Flow Control<br>
+      选择Hardware或Xon/Xoff
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Parallel Port</B>
+    </p>
+    <p>
+      &gt; Parallel Port Name<br>
+      &gt; <br>
+      &gt; Please choose one of the available parallel ports:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      选择要使用的并行端口。
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      <br>
+      <B>- Ethernet Port</B>
+    </p>
+    <p>
+      &gt; Ethernet Port Name<br>
+      &gt; <br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; Please input an IP address: (ex 192.168.0.10)<br>
+      输入IP地址，然后按回车键。
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Do you want to save the changes you have made (Y or N)<br>
+      输入Y，然后按回车键。
+    </p>
+    <br>
+    <br>
+    <h4>7.3.2. 更改端口设定：命令格式方式设置</h4>
+    <p class="dicription-port-set">
+      选项​​“set”后，请执行tmpcsconfig命令。<br>
+    </p>
+    <br>
+    <p class="dicription-gt-port-set">
+      示例）<br>
+      # tmpcsconfig set ESDPRT002 baudrate 115200<br>
+    </p>
+    <p>
+      &gt; SetPortConfigNumber done successfully for<br>
+      &gt; <span class="pad05">PortName=ESDPRT002, ControlID=Baudrate, Data=115200</span>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig set ESDPRT002 stopbits 1<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig set ESDPRT002 parity even<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      （使用关键字缩写）<br>
+      # tmpcsconfig s 2 h x<br>
+    </p>
+    <p>
+      &gt; SetPortConfigNumber done successfully for<br>
+      &gt; <span class="pad05">PortName=ESDPRT002, ControlID=Handshake, Data=XON/XOFF</span><br>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig s 4 mi 10000<br>
+    </p>
+    <p>
+      &gt; SetPortConfigNumber done successfully for<br>
+      &gt; <span class="pad05">PortName=ESDPRT004, ControlID=MonitorInterval(MI), Data=10000</span><br>
+      <br>
+     如果你要检查设定值，您可以勾选“enum &lt;端口名&gt;”选项。<br>
+    </p>
+    <br>
+    <br>
+    <h3>7.4. 删除端口时</h3>
+    <h4>7.4.1. 删除端口：菜单驱动方式设置</h4>
+    <br>
+    <p class="dicription-gt-port-set">
+      请运行tmportconfig命令。<br>
+      # tmportconfig<br>
+    </p>
+    <br>
+    <p>
+      &gt; TM/BA Printer Port Configuration Tool<br>
+      &gt; <br>
+      &gt; Please choose one of the following options:
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      输入“Delete existing port”的数值，按回车键。
+    </p>
+    <br>
+    <p>
+      &gt; Delete Existing Port<br>
+      &gt; <br>
+      &gt; Please choose one of the existing ports:<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      &gt; &middot;&middot;&middot;<br>
+      输入要删除的端口的数值，然后按回车键。
+    </p>
+    <br>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      &gt; Do you want to save the changes you have made (Y or N)<br>
+      输入Y，然后按回车键。<br>
+    </p>
+    <br>
+    <br>
+    <h4>7.4.2. 删除端口：命令格式方式设置</h4>
+    <br>
+    <p class="dicription-gt-port-set">
+       选项​​“delete”后，请执行tmpcsconfig命令。<br>
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      示例）<br>
+      # tmpcsconfig delete ESDPRT001<br>
+    </p>
+    <p>
+      &gt; PortName: ESDPRT001 deleted successfully.
+    </p>
+    <br>
+    <br>
+    <h3>7.5. 有关tmpcsconfig命令选项的关键字缩写</h3>
+    <br>
+    <p class="dicription-gt-port-set">
+      tmpcsconfig命令选项，您可以指定如下关键字缩写。<br>
+        {add -&gt; a, enumerate -&gt; e, set -&gt; s, delete -&gt; d},<br>
+        {ESDPRT001 -&gt; 1 或 001, ESDPRT002 -&gt; 2 或 002, ...},<br>
+        {baudrate -&gt; ba, stopbits -&gt; st, parity -&gt; p, ...},<br>
+        {MonitorInterval -&gt; mi, MonitorTimeout -&gt; mt, ...}, 等等
+    </p>
+    <br>
+    <br>
+    <p class="dicription-gt-port-set">
+      示例）<br>
+      # tmpcsconfig s 2 p e<br>
+      等于<br>
+      # tmpcsconfig set ESDPRT002 parity even<br>
+    </p>
+    <br>
+    <p>
+      如果想了解关键字缩写的命令选项，键入“&#63;”来代替正确的关键字。<br>
+      指定的命令选项的个数错误，可能会出现错误消息。请指定正确个数的命令选项。<br><br>
+    </p>
+    <br>
+    <p class="dicription-gt-port-set">
+      示例）<br>
+      # tmpcsconfig s 2 &#63; &#63;<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+      &gt; Invalid parameter for set option: &#63;<br>
+      &gt; <span class="pad05">Shortened keywords available:</span><br>
+      &gt; <span class="pad05">[Serial port setting]</span><br>
+      &gt; <span class="pad10">ba for Baudrate</span><br>
+      &gt; <span class="pad10">da for Databit</span><br>
+      &gt; <span class="pad10">p for Parity</span><br>
+      &gt; <span class="pad10">st for Stopbits</span><br>
+      &gt; <span class="pad10">h for Handshake</span><br>
+      &gt; <span class="pad10">sendt for SendTimeout</span><br>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+    <p class="dicription-gt-port-set">
+      <br>
+      # tmpcsconfig s 2 p &#63;<br>
+    </p>
+    <p>
+      &gt; &middot;&middot;&middot;<br>
+      &gt; Invalid parameter for setting parity option: &#63;<br>
+      &gt; <span class="pad05">Shortened keywords available:</span><br>
+      &gt; <span class="pad10">n for None</span><br>
+      &gt; <span class="pad10">o for Odd</span><br>
+      &gt; <span class="pad10">e for Even</span><br>
+      &gt; &middot;&middot;&middot;<br>
+    </p>
+    <br>
+    <br>
+
+
+<!--Transmission function for a user-defined file-->
+    <hr>
+    <h2><a name="transmission_function">8. 用于用户定义文件的传送功能</a></h2>
+    <hr>
+    <h3>8.1 概述</h3>
+    <p>
+      用户创建的ESC/POS命令文件被称为用户定义文件。将用户定义文件放入<br>
+      指定位置后，用户可以针对每个页面或作业以固定的时序将文件中的命令<br>
+      数据传送至打印机。<br><br>
+    </p>
+    <h3>8.2 用户定义文件的传送时序和命名规范</h3>
+    <p>
+      文件存储文件夹： /var/lib/tmx-cups/<br>
+    </p>
+    <table class="u-def-file" cellpadding="1" cellspacing="1">
+      <thead>
+        <tr><th class="u-def-file">命名规范</th><th class="u-def-file">传送时序</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="u-def-file">{打印机名称}_StartJob.prn</td><td class="u-def-file">开始打印时（初始化打印机后）</td></tr>
+        <tr><td class="u-def-file">{打印机名称}_EndJob.prn</td><td class="u-def-file">打印后（剪切文件前）</td></tr>
+        <tr><td class="u-def-file">{打印机名称}_StartPage.prn</td><td class="u-def-file">开始打印每一页时（初始化页面后）</td></tr>
+        <tr><td class="u-def-file">{打印机名称}_EndPage.prn</td><td class="u-def-file">打印页面后（剪切页面前）</td></tr>
+      </tbody>
+    </table>
+    <p>
+      打印机名称指CUPS中登录的打印机名称。
+    </p>
+    <p class="exam-u-def">
+      示例）登录的打印机名称为tmtprinter而您想要在开始时输出标识时，
+            请登录以下文件。<br>
+      <br>
+      /var/lib/tmx-cups/tmtprinter_StartJob.prn<br>
+    </p>
+    <p>
+      注）
+    </p>
+    <p class="note-u-def">
+      ! 您需要根特权才能在/var/lib/tmx-cups/中存储用户定义文件。
+    </p>
+    <p class="note-u-def">
+      ! 根据其功能给予用户定义文件合适的许可。如果打印用户没有用户定义<br>
+        文件的读取许可，则不会执行传送。
+    </p>
+    <p class="note-u-def">
+      ! 如果用户定义文件中包含图案匹配实时命令的图形命令时，则打印机可能
+        会出现故障。
+    </p>
+    <p class="note-u-def">
+      ! 如果任何子目录中存储了用户定义文件，则卸载该程序包时不会删除包含
+        该文件的目录。
+    </p>
+
+    <br>
+    <h3>8.3 打印文本数据</h3>
+    <p>
+      如果/var/lib/tmx-cups下的用户定义文件包含文本数据，则您可以打印文本数据。<br>
+    </p>
+    <p class="exam-u-def">
+      示例）tmtprinter_StartJob.prn包含以下文本数据时<br>
+    </p>
+    <p>
+      ======<br>
+      Welcome!<br>
+      <br>
+      ======<br>
+      每次您在tmtprinter中从页面顶部开始打印时，会打印以上文本数据。
+    </p>
+    <br>
+    <p>
+      注）
+    </p>
+    <p class="note-u-def">
+      ! 如果指定的字符代码不是ASCII，则可能不能正确打印文本数据。<br>
+    </p>
+    <p class="note-u-def">
+      ! 将&lt;LF&gt;(0x0A)用于换行。<br>
+        如果使用了&lt;CR&gt;(0x0D)，则不能保证打印操作的质量。
+    </p>
+    <p class="note-u-def">
+      ! 如果一行的结尾没有换行&lt;LF&gt;标记，则可能不能正确打印文本数据。
+    </p>
+    <p class="note-u-def">
+      ! 请不要在用户定义文件里面包含&lt;FF&gt;(0x0C)的纸张控制命令，
+        否则打印机有错误运行的可能性。
+    </p>
+    <p class="note-u-def">
+      ! 如果打印时编辑或删除了用户定义文件，则无法保证打印结果。<br>
+        打印完成之前请勿更改用户定义文件。 
+    </p>
+    <br>
+    <br>
+
+
+
+<!--Multi-tone conversion tool-->
+    <hr>
+    <h2><a name="multi-tone_conversion_tool">9. 多色调转换工具</a></h2>
+    <hr>
+    <h3>9.1 概述</h3>
+    <p>
+      该工具可以把图像文件转换成ESC/POS命令数据。通过使用这个工具，
+      TM/BA系列热敏打印机可以打印出多色调图形数据。<br>
+      此外，您还可以通过注册存储在用户自定义文件夹中的转换命令数据文件，
+      打印出徽标。
+    </p>
+    <br>
+    <h3>9.2 命令名称和安装位置</h3>
+    <p>
+      /usr/bin/tmbmptobin
+    </p>
+    <p>
+      一个定制的ID（_secc0000等）增加了定制版本的驱动程序在多色调转换工具名称。
+      然而，对于简化，在本手册的其余部分或模型手册中省略了自定义标识。
+    </p>
+    <br>
+    <h3>9.3 该工具的选项</h3>
+    <p>
+      格式： tmbmptobin [选项] 输入的BMP文件 输出的BIN文件
+    </p>
+    <table class="m-tone-options">
+      <tr><td colspan="3">选项 ([]是默认设置）</td></tr>
+      <tr><td></td><td>[-16s], -2s</td><td>多色调，单色</td></tr>
+      <tr><td></td><td>[-left], -center, -right</td><td>指定的打印位置</td></tr>
+      <tr><td></td><td>-b65 to [-b100] to -b135</td><td>亮度调节（增量为5）</td></tr>
+      <tr><td></td><td>-r180</td><td>指定旋转180度</td></tr>
+      <tr><td></td><td>[-80mm], -58mm</td><td>纸张幅度 80mm、58mm</td></tr>
+      <tr><td></td><td>[-180dpi], -203dpi</td><td>分辨率 180dpi、203dpi</td></tr>
+      <tr><td></td><td>[-h80] to -h415</td><td>带高度 80～415</td></tr>
+    </table>
+    <p>
+      注）
+    </p>
+    <p class="note-m-tone">
+      ! 多色调选项只能使用在支持多色调打印的打印机。(例:TM-T88V) <br>
+    </p>
+    <p class="note-m-tone">
+      ! 仅支持Windows BMP文件格式。<br>
+        支持1bits/4bits/8bits/24bits未压缩的BMP格式。
+    </p>
+    <p class="note-m-tone">
+      ! 请注意图像尺寸不能超过打印机的最大打印宽度。<br>
+        如果超出了最大打印宽度，图像将不被打印。<br>
+        示例）如果纸张80毫米，分辨率为180dpi的 - 小于510像素
+    </p>
+    <br>
+    <h3>9.4 如何注册徽标</h3>
+    <p>
+      用户可以在用户自定义的文件夹中，通过注册一个二进制文件，<br>
+      把图像文件中的数据转换为命令，这样就可以在打印的页面中插入徽标。<br>
+      请参阅 “8. 用于用户定义文件的传送功能” 的详细信息。<br>
+    </p>
+    <br>
+    <h3>9.5 打印优惠券的唯一文件</h3>
+    <p>
+      运行下面的命令，用户可以立即打印，例如优惠券的图像文件。<br>
+      <br>
+      示例）注册的打印机名称为 tmtprinter<br>
+      ======<br>
+      #&ensp;tmbmptobin&ensp;&ensp;imagedata.bmp&ensp;&ensp;/var/lib/tmx-cups/tmtprinter_StartJob.prn<br>
+      #&ensp;echo&ensp;&quot;&quot;&ensp;|&ensp;lpr&ensp;-P&ensp;tmtprinter<br>
+      ======<br>
+    </p>
+    <p>
+      注）
+    </p>
+    <p class="note-m-tone">
+      ! 上述操作中，如果tmtprinter_StartDocStartJob.prn已经被注册，
+        将被上述命令盖写。
+    </p>
+    <br>
+    <br>
+
+
+<!--How to Uninstall-->
+    <hr>
+    <h2><a name="how_to_uninstall">10. 如何卸载</a></h2>
+    <hr>
+    <p>
+      以下内容说明如何卸载该软件。
+    </p>
+    <p>
+      转到解冻后压缩包所在的目录，请运行uninstall.sh文件。<br>
+    </p>
+    <p class="note-m-tone">
+        # ./uninstall.sh
+    </p>
+    <p>
+      注）
+    </p>
+    <p class="note-m-tone">
+        ! 您需要具有root用户权限，方可卸载软件。
+    </p>
+    <p class="note-m-tone">
+        ! 如果该目录下存在用户数据，则不会删除/var/lib/tmx-cups目录。
+    </p>
+    <p class="note-m-tone">
+        ! 使用该驱动程序的打印机，可以被检测出来，并被删除。
+    </p>
+    <br>
+    <br>
+
+
+<!--Notes and restrictions-->
+    <hr>
+    <h2><a name="notes_and_restrictions">11. 注意和限制</a></h2>
+    <hr>
+    <br>
+    <p class="dicription-notes">
+      * 在某些情况下，USB插头和播放操作可能会失败。<br>
+      <br>
+        如果USB设备端口不能自动生成，请重新启动电脑。
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * 如果打印机是通过版本专用打印机管理工具登录的，可能无法执行打印操作。<br>
+      <br>
+        请使用CUPS WebAdmin登录打印机。
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * 取消作业后，不会立即停止打印。<br>
+      <br>
+        无法立即取消打印机已启动的打印作业。
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * 错误的操作，在打开打印机后，可能会打印出乱码字符。<br>
+      <br>
+        打印期间，请勿关闭打印机或拔除通信线缆。
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * 在打印或等待打印作业期间，如果打印机进入挂起或休眠状态，可能会无法重启打印。<br>
+      <br>
+        请勿使打印机进入挂起或休眠状态。
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * 打印纸张上可能会出现水平线条。<br>
+    </p>
+    <br>
+    <br>
+
+
+<!--Support information-->
+    <hr>
+    <h2><a name="support_information">12. 支持信息</a></h2>
+    <hr>
+    <p class="dicription-notes">
+      * 欧洲、中美或南美、中东、非洲、亚洲、大洋洲<br>
+        <a href="https://download.epson-biz.com/?service=pos" target="_blank">https://download.epson-biz.com/?service=pos</a><br>
+        <br>
+        您可以从该网站下载最新的打印机驱动程序。
+    </p>
+    <br>
+    <p class="dicription-notes">
+      * 北美洲<br>
+        <a href="http://www.epsonexpert.com/" target="_blank">http://www.epsonexpert.com/</a><br>
+        <br>
+        如果您是北美客户，请访问爱普生美国公司网站。
+    </p>
+    <br>
+    <br>
+
+
+<!--Modification from the old version-->
+    <hr>
+    <h2><a name="modification">13. 基于旧版本的修改</a></h2>
+    <hr>
+    <p>
+      <b>* 版本2.0.3.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - 支持以下打印机：<br>
+        - TM-T88VI<br>
+        - TM-m10<br>
+        - TM-m30<br>
+    </p>
+    <p class="dicription-mod">
+      - 更新PPD文件。:<br>
+    </p>
+    <p class="dicription-mod-child">
+         [TM BA Thermal Printer]<br>
+          - 更改选项名称TmxPrintingSpeed至TmxPrintSpeed。<br>
+    </p>
+    <p class="dicription-mod">
+      - 更新过滤。
+    </p>
+    <p class="dicription-mod">
+      - 更新后端。
+    </p>
+    <p class="dicription-mod">
+      - 更新PCS（端口通信服务）。
+    </p>
+    <br>
+    <p>
+      <b>* 版本2.0.2.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - 更新PPD文件。:<br>
+    </p>
+    <p class="dicription-mod-child">
+         [TM BA Thermal Printer]<br>
+          - 更改选项名称TmxSpeed至TmxPrintingSpeed。<br>
+          - 添加2000毫米高度“卷纸”的纸张尺寸。<br>
+          - 更改分辨率的组态。<br>
+          - 添加速度控制: Max. level 10.<br>
+    </p>
+    <p class="dicription-mod-child">
+         [TM Impact Receipt Printer]<br>
+          - 添加2000毫米高度“卷纸”的纸张尺寸。<br>
+          - 更改分辨率的组态。<br>
+    </p>
+    <p class="dicription-mod">
+      - 支持操作系统 Ubuntu 14.04。
+    </p>
+    <p class="dicription-mod">
+      - 下面的问题已得到解决。:<br>
+    </p>
+    <p class="dicription-mod-child">
+        - 一些打印PostScript文档可能失败，
+          因为默认纸张尺寸（高度）不够大。<br>
+    </p>
+    <p class="dicription-mod-child">
+        - 如果打印单页纸时纸意外结束，
+          垃圾字符可能会被打印出来。<br>
+    </p>
+    <p class="dicription-mod">
+      - 更新PCS（端口通信服务）。
+    </p>
+    <p class="dicription-mod">
+      - 安装，卸载脚本已更新。
+    </p>
+    <br>
+    <p>
+      <b>* 版本2.0.1.2</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - 安装，卸载脚本已更新。
+    </p>
+    <p class="dicription-mod">
+      - 支持操作系统 Red Hat Enterprise Linux(RHEL) 6.4。
+    </p>
+    <p class="dicription-mod">
+      - 支持操作系统 Red Hat Enterprise Linux(RHEL) 6.5。
+    </p>
+    <p class="dicription-mod">
+      - 支持SELinux。
+    </p>
+    <br>
+    <p>
+      <b>* 版本2.0.1.1</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - 更新PCS（端口通信服务）。
+    </p>
+    <p class="dicription-mod">
+      - 支持操作系统 openSUSE 13.1
+    </p>
+    <br>
+    <p>
+      <b>* 版本2.0.1.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - 支持StatusAPI（状态监视API）。<br>
+         提供另一种可选包StatusAPI。<br>
+          &emsp;tmx-stmapi-2.0.0-1<br>
+    </p>
+    <p class="dicription-mod">
+      - 更新后端。
+    </p>
+    <p class="dicription-mod">
+      - 更新PCS（端口通信服务）。
+    </p>
+    <p class="dicription-mod">
+      - 更新PPD文件用于TM/BA通用热敏打印机。
+    </p>
+    <br>
+    <p>
+      <b>* 版本2.0.0.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - 支持以下打印机：<br>
+      ［TM通用型号］<br>
+        - TM/BA通用热敏打印机<br>
+        - TM通用撞击点阵收据打印机<br>
+        - TM通用条单打印机<br>
+      ［可选型号使用TM通用型号］<br>
+        - TM-H6000II (收据, 条单)<br>
+        - TM-H6000III (收据, 条单)<br>
+        - TM-H6000IV (收据, 条单)<br>
+        - TM-T70<br>
+        - TM-T70 ANK<br>
+        - TM-T90<br>
+        - TM-T90 ANK<br>
+        - TM-T90II<br>
+        - TM-U120<br>
+        - TM-U120II<br>
+        - TM-U230<br>
+        - TM-U375 (收据, 条单)<br>
+        - TM-U675 (收据, 条单)<br>
+    </p>
+    <p class="dicription-mod">
+      - 撞击式点阵式的驱动已经集成。
+    </p>
+    <p class="dicription-mod">
+      - 软件包名称已被更改。(tmt&ndash;cups&ndash;*&ensp;&rarr; tmx&ndash;cups&ndash;*)
+    </p>
+    <p class="dicription-mod">
+      - PPD文件的版本为2.0已被更改。<br>
+       （以前的PPD文件不能使用。）
+    </p>
+    <p class="dicription-mod">
+      - 安装，卸载脚本已更新。
+    </p>
+    <p class="dicription-mod">
+      - 支持操作系统 openSUSE 12.2
+    </p>
+    <p class="dicription-mod">
+      - 支持操作系统 Ubuntu 12.04
+    </p>
+    <p class="dicription-mod">
+      - 更新PCS（端口通信服务）。<br>
+      &nbsp;&nbsp;&nbsp;更改“Ethernet端口的设定”<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MonitorTimeout         :  500 -> 2000<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WiredPowerOffCount     :    1 ->    3<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WiredPowerOfflineCount :    0 ->    1<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PowerOffMonitorTimeout : 1000 -> 2000<br>
+    </p>
+    <br>
+    <p>
+      <b>* 版本1.4.0.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - 支持以下打印机：<br>
+        - TM-T82II<br>
+    </p>
+    <p class="dicription-mod">
+        - 用户手册被重新编入驱动程序手册和打印机手册中。
+    </p>
+    <p class="dicription-mod">
+        - 提供卸载脚本。
+    </p>
+    <p class="dicription-mod">
+        - 通信模块已切换到PCS(Port Comminication Service)。
+    </p>
+    <p class="dicription-mod">
+        - install.sh脚本文件中添加了以下功能：<br>
+          - 自动检测并卸载不兼容的版本。<br>
+          - 删除使用不兼容的版本驱动程序的打印机。
+    </p>
+    <p class="dicription-mod">
+        - 某些文件名称已被更改，按照命名约定。<br>
+    </p>
+    <table class="ver1-4-mod">
+      <tr><td>- 后端</td><td>: epsontm -&gt; tmbaprn</td></tr>
+      <tr><td>- 工具</td><td>: EPPortConfig -&gt; tmportconfig, </td></tr>
+      <tr><td>&emsp;</td><td>&ensp;tmcupsbmptobin -&gt; tmbmptobin</td></tr>
+      <tr><td>- PPD文件</td><td>: 删除 &quot;epson-&quot;</td></tr>
+    </table>
+    <br>
+    <p class="dicription-mod">
+        - 提供命令行端口设置工具tmpcsconfig。
+    </p>
+    <br>
+    <p>
+      <b>* 版本1.3.1.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - TM-T82支持以太网连接。<br>
+    </p>
+    <p class="dicription-mod">
+      - 附带有一个简体中文版PPD文件。<br>
+    </p>
+    <p class="dicription-mod">
+      - 手册中的错误已纠正。<br>
+    </p>
+    <br>
+    <p>
+      <b>* 版本1.3.0.0</b><br>
+    </p>
+    <br>
+    <p class="dicription-mod">
+      - 新发布。<br>
+    </p>
+    <p class="dicription-mod">
+      - 支持以下打印机：<br>
+    </p>
+    <p class="dicription-mod-child">
+        - TM-T82<br>
+    </p>
+    <br>
+    <br>
+
+
+<!--Copyright-->
+  <hr>
+    <p>
+      版权(C) Seiko Epson公司 2011-2016，版权所有。<br>
+    <br>
+      Linux是Linus Torvalds在美国和其他国家的注册商标或商标。<br>
+    <br>
+      CUPS和CUPS标识是Apple Inc.在美国和其他国家注册的商标。<br>
+    <br>
+      “openSUSE”是SUSE LLC，或其附属公司的商标，该公司建立并赞助了openSUSE
+      项目，并由该项目指定为执行公司。<br>
+    <br>
+      Ubuntu和Canonical是Canonical Ltd.的注册商标。<br>
+    <br>
+      Red Hat和Red Hat Enterprise Linux是Red Hat, Inc.在美国和其他
+      国家注册的商标。<br>
+    <br>
+      本文档中其他产品的名称都是各自公司的商标或注册商标。<br>
+    </p>
+    <br>
+
+
+  </body>
+</html>
